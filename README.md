@@ -1,4 +1,6 @@
 # Time Management App - Innerly
+Time management mobile application made with Android Studio
+
 ## Team Information
 Team: JAMS  
 Members: Jasmine Lao, Anne Mai, Megan Ju, Sandra Le  
@@ -6,7 +8,7 @@ Fall 2024, CS 175
 
 ## Basic Functionalities
 - Goals checklist
-- Pomodoro timer + stats
+- In-house pomodoro timer + stats
 - Journal entries: video, pictures, text
 - Virtual pet
 - User authentication/accounts
