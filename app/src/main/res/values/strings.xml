@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">Jams</string>
     <string name="goals">Goals</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="pomodoro">Pomodoro</string>
+    <string name="pomodoro_session">Pomodoro Session</string>
+    <string name="session_length">Session Length</string>
 </resources>
