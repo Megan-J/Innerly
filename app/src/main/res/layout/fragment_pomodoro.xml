@@ -2,6 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_pomodoro"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -15,7 +16,7 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/pomodoro_session_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/pomodoro_session"
@@ -42,61 +43,64 @@
             app:layout_constraintVertical_bias="0.19"
             android:background="@drawable/timer_background"/>
 
+        <LinearLayout
+            android:id="@+id/linearLayout_sessionLength"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginEnd="6dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.07"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/timeText"
+            app:layout_constraintVertical_bias="0.19999999">
+
+            <Button
+                android:id="@+id/sessionDecrement"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:backgroundTint="#76453B"
+                android:fillColor="#FF6200EE"
+                android:text="-"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/sessionLengthText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="25"
+                android:textColor="@color/white"
+                android:textSize="24sp" />
+
+            <Button
+                android:id="@+id/sessionIncrement"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:backgroundTint="#76453B"
+                android:fillColor="#FF6200EE"
+                android:text="+" />
+
+        </LinearLayout>
+
                 <LinearLayout
-                    android:id="@+id/linearLayout"
+                    android:id="@+id/linearLayout_breakLength"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.18"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/timeText"
-                    app:layout_constraintVertical_bias="0.19999999">
-
-                    <Button
-                        android:id="@+id/sessionDecrement"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:text="-"
-                        android:textColor="@color/white"
-                        android:backgroundTint="#76453B" />
-
-                    <TextView
-                        android:id="@+id/sessionLengthText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="8dp"
-                        android:text="25"
-                        android:textColor="@color/white"
-                        android:textSize="24sp" />
-
-                    <Button
-                        android:id="@+id/sessionIncrement"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:backgroundTint="#76453B"
-                        android:text="+" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/linearLayout2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/linearLayout"
+                    app:layout_constraintStart_toEndOf="@+id/linearLayout_sessionLength"
                     app:layout_constraintTop_toBottomOf="@+id/timeText"
                     app:layout_constraintVertical_bias="0.19999999">
 
                     <Button
                         android:id="@+id/breakDecrement"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
                         android:backgroundTint="#76453B"
-                        android:text="-" />
+                        android:text="-"/>
 
                     <TextView
                         android:id="@+id/breakLengthText"
@@ -109,10 +113,10 @@
 
                     <Button
                         android:id="@+id/breakIncrement"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
                         android:backgroundTint="#76453B"
-                        android:text="+" />
+                        android:text="+"/>
 
                 </LinearLayout>
 
@@ -125,10 +129,10 @@
                     android:text="@string/session_length"
                     android:textColor="@color/white"
                     android:textSize="20sp"
-                    app:layout_constraintEnd_toEndOf="@+id/linearLayout"
+                    app:layout_constraintEnd_toEndOf="@+id/linearLayout_sessionLength"
                     app:layout_constraintHorizontal_bias="0.428"
-                    app:layout_constraintStart_toStartOf="@+id/linearLayout"
-                    app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+                    app:layout_constraintStart_toStartOf="@+id/linearLayout_sessionLength"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout_sessionLength" />
 
                 <TextView
                     android:id="@+id/breakLengthLabel"
@@ -139,34 +143,47 @@
                     android:text="Break Length"
                     android:textColor="@color/white"
                     android:textSize="20sp"
-                    app:layout_constraintEnd_toEndOf="@+id/linearLayout2"
-                    app:layout_constraintStart_toStartOf="@+id/linearLayout2"
-                    app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+                    app:layout_constraintEnd_toEndOf="@+id/linearLayout_breakLength"
+                    app:layout_constraintStart_toStartOf="@+id/linearLayout_breakLength"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout_breakLength" />
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/timeText">
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/timeText">
 
-                    <Button
-                        android:id="@+id/startButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Start"
-                        android:backgroundTint="#B19470"/>
+            <Button
+                android:id="@+id/startButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#B19470"
+                android:text="Start" />
 
-                    <Button
-                        android:id="@+id/resetButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:text="Reset"
-                        android:backgroundTint="#B19470"/>
-                </LinearLayout>
+            <Button
+                android:id="@+id/resetButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:backgroundTint="#B19470"
+                android:text="Reset" />
+        </LinearLayout>
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/session_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Session Start"
+            android:paddingStart="16dp"
+            android:textSize="25dp"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/timeText" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
         </FrameLayout>
