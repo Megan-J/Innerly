@@ -3,16 +3,37 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/mainActivity">
+    app:startDestination="@id/openingFragment">
 
-    <activity
-        android:id="@+id/mainActivity"
-        android:name="edu.sjsu.android.jams.MainActivity"
-        android:label="activity_main"
-        tools:layout="@layout/activity_main" />
     <fragment
         android:id="@+id/pomodoroFragment"
         android:name="edu.sjsu.android.jams.PomodoroFragment"
         android:label="fragment_pomodoro"
         tools:layout="@layout/fragment_pomodoro" />
+    <fragment
+        android:id="@+id/openingFragment"
+        android:name="edu.sjsu.android.jams.OpeningFragment"
+        android:label="fragment_opening"
+        tools:layout="@layout/fragment_opening" >
+        <action
+            android:id="@+id/action_openingFragment_to_homepageFragment"
+            app:destination="@id/homepageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/homepageFragment"
+        android:name="edu.sjsu.android.jams.HomepageFragment"
+        android:label="fragment_homepage"
+        tools:layout="@layout/fragment_homepage" >
+        <action
+            android:id="@+id/action_homepageFragment_to_pomodoroFragment"
+            app:destination="@id/pomodoroFragment" />
+        <action
+            android:id="@+id/action_homepageFragment_to_goalItemFragment"
+            app:destination="@id/goalItemFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/goalItemFragment"
+        android:name="edu.sjsu.android.jams.goals.GoalItemFragment"
+        android:label="fragment_goal_item_list"
+        tools:layout="@layout/fragment_goal_item_list" />
 </navigation>

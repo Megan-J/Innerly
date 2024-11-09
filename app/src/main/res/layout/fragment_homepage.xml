@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#6C3D2A"
+    android:orientation="vertical"
+    tools:context=".HomepageFragment">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/computer_image"
+            android:layout_width="257dp"
+            android:layout_height="295dp"
+            android:src="@drawable/pixalated_computer"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.43"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.52" />
+
+        <ImageView
+            android:id="@+id/window_image"
+            android:layout_width="383dp"
+            android:layout_height="391dp"
+            android:layout_marginStart="148dp"
+            android:src="@drawable/pixalated_window"
+            app:layout_constraintBottom_toTopOf="@+id/computer_image"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.103" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="443dp"
+            android:layout_height="390dp"
+            android:layout_marginTop="1dp"
+            android:background="@color/light_brown_theme_color"
+            android:backgroundTint="@color/light_brown_theme_color"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/computer_image"
+            app:layout_constraintVertical_bias="0.34">
+
+            <ImageView
+                android:id="@+id/pomodoro_image"
+                android:layout_width="166dp"
+                android:layout_height="156dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="52dp"
+                android:src="@drawable/pixalated_pomodoro"
+                app:layout_constraintEnd_toStartOf="@id/book_image"
+                app:layout_constraintHorizontal_bias="0.69"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/book_image"
+                android:layout_width="188dp"
+                android:layout_height="179dp"
+                android:layout_marginEnd="20dp"
+                android:src="@drawable/pixalated_book_sideways"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.578"
+                app:layout_constraintStart_toEndOf="@+id/pomodoro_image"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.194" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pomodoro"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="@+id/pomodoro_image"
+                app:layout_constraintStart_toStartOf="@+id/pomodoro_image"
+                app:layout_constraintTop_toBottomOf="@+id/pomodoro_image" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Journal"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="@+id/book_image"
+                app:layout_constraintStart_toStartOf="@+id/book_image"
+                app:layout_constraintTop_toBottomOf="@+id/book_image" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Goals"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
+            app:layout_constraintEnd_toEndOf="@+id/computer_image"
+            app:layout_constraintHorizontal_bias="0.488"
+            app:layout_constraintStart_toStartOf="@+id/computer_image"
+            app:layout_constraintTop_toTopOf="@+id/computer_image"
+            app:layout_constraintVertical_bias="0.53" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="Welcome to Innerly"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.103"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="44dp"
+            android:src="@drawable/cat_logo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.181"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</FrameLayout>

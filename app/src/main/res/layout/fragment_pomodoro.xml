@@ -60,7 +60,7 @@
                 android:id="@+id/sessionDecrement"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:backgroundTint="#76453B"
+                android:backgroundTint="@color/dark_brown_theme_color"
                 android:fillColor="#FF6200EE"
                 android:text="-"
                 android:textColor="@color/white" />
@@ -78,7 +78,7 @@
                 android:id="@+id/sessionIncrement"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:backgroundTint="#76453B"
+                android:backgroundTint="@color/dark_brown_theme_color"
                 android:fillColor="#FF6200EE"
                 android:text="+" />
 
@@ -99,7 +99,7 @@
                         android:id="@+id/breakDecrement"
                         android:layout_width="60dp"
                         android:layout_height="60dp"
-                        android:backgroundTint="#76453B"
+                        android:backgroundTint="@color/dark_brown_theme_color"
                         android:text="-"/>
 
                     <TextView
@@ -115,7 +115,7 @@
                         android:id="@+id/breakIncrement"
                         android:layout_width="60dp"
                         android:layout_height="60dp"
-                        android:backgroundTint="#76453B"
+                        android:backgroundTint="@color/dark_brown_theme_color"
                         android:text="+"/>
 
                 </LinearLayout>
@@ -154,14 +154,16 @@
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/timeText">
+            app:layout_constraintTop_toBottomOf="@+id/timeText"
+            app:layout_constraintVertical_bias="0.772">
 
             <Button
                 android:id="@+id/startButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="#B19470"
+                android:backgroundTint="@color/light_brown_theme_color"
                 android:text="Start" />
 
             <Button
@@ -169,7 +171,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:backgroundTint="#B19470"
+                android:backgroundTint="@color/light_brown_theme_color"
                 android:text="Reset" />
         </LinearLayout>
 
@@ -184,6 +186,17 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/timeText" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="109dp"
+            android:layout_height="92dp"
+            android:src="@drawable/cat_logo"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/session_status"
+            app:layout_constraintVertical_bias="0.87" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
         </FrameLayout>

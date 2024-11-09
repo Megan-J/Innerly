@@ -21,7 +21,7 @@ public class PomodoroFragment extends Fragment {
     private boolean timerRunning = false;
     private boolean workSession = true;
 
-    private long workDuration = 1 * 60 * 1000;
+    private long workDuration = 25 * 60 * 1000;
     private long breakDuration = 2 * 60 * 1000;
     private long timeRemaining = workDuration;
 
