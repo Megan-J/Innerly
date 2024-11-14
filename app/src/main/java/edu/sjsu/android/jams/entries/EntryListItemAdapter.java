@@ -6,15 +6,10 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import edu.sjsu.android.jams.placeholder.PlaceholderContent.PlaceholderItem;
 import edu.sjsu.android.jams.databinding.FragmentEntryItemBinding;
 
 import java.util.List;
 
-/**
- * {@link RecyclerView.Adapter} that can display a {@link PlaceholderItem}.
- * TODO: Replace the implementation with code for your data type.
- */
 public class EntryListItemAdapter extends RecyclerView.Adapter<EntryListItemAdapter.ViewHolder> {
 
     private final List<String> mValues;
