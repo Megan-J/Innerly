@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:paddingVertical="@dimen/text_margin"
+    android:background="@color/green_theme_color"
+    android:orientation="vertical"
+    app:flow_verticalGap="10dp">
+
+    <TextView
+        android:id="@+id/entry_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?attr/textAppearanceListItem"
+        android:textColor="@color/light_green_theme_color"
+        android:textSize="25sp"
+        android:text="the date"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/entry_list_date_and_content_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".entries.EntryListItemDateContent"
+        tools:listitem="@layout/fragment_entry_content_item"/>
+
+</LinearLayout>

@@ -30,10 +30,18 @@
         <action
             android:id="@+id/action_homepageFragment_to_goalItemFragment"
             app:destination="@id/goalItemFragment" />
+        <action
+            android:id="@+id/action_homepageFragment_to_entryListFragment"
+            app:destination="@id/entryListFragment" />
     </fragment>
     <fragment
         android:id="@+id/goalItemFragment"
         android:name="edu.sjsu.android.jams.goals.GoalItemFragment"
         android:label="fragment_goal_item_list"
         tools:layout="@layout/fragment_goal_item_list" />
+    <fragment
+        android:id="@+id/entryListFragment"
+        android:name="edu.sjsu.android.jams.entries.EntryListFragment"
+        android:label="fragment_entry_list"
+        tools:layout="@layout/fragment_entry_item_list" />
 </navigation>

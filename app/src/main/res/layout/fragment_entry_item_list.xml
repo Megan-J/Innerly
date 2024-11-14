@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/page_padding"
+    android:background="@color/green_theme_color"
+    android:orientation="vertical"
+    app:flow_verticalGap="10dp">
+
+    <TextView
+        android:id="@+id/my_entries_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:textSize="@dimen/page_title_size"
+        android:text="My Entries" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="10dp" />
+
+    <Button
+        android:id="@+id/add_entry_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/light_brown_theme_color"
+        android:text="Add Entry" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/entry_list_date_and_content_recycler_view"
+        android:name="edu.sjsu.android.jams.EntryFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/green_theme_color"
+        app:layoutManager="LinearLayoutManager"
+        tools:context=".entries.EntryListFragment"
+        tools:listitem="@layout/fragment_entry_item" />
+
+
+</LinearLayout>

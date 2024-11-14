@@ -57,7 +57,7 @@ public class HomepageFragment extends Fragment {
     private void onClickBook(View view) {
         Log.d("test", "clicked book image in homepage fragment");
         NavController controller = Navigation.findNavController(view);
-//        controller.navigate(R.id.action_homepageFragment_to_pomodoroFragment);
+        controller.navigate(R.id.action_homepageFragment_to_entryListFragment);
     }
 
     private void onClickPomodoro(View view) {

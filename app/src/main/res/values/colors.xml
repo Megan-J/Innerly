@@ -3,6 +3,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="green_theme_color">#43766C</color>
+    <color name="light_green_theme_color">#99BCC0</color>
     <color name="dark_brown_theme_color">#76453B</color>
     <color name="light_brown_theme_color">#B19470</color>
 </resources>
