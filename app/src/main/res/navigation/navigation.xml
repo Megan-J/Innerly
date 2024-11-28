@@ -9,7 +9,14 @@
         android:id="@+id/pomodoroFragment"
         android:name="edu.sjsu.android.jams.PomodoroFragment"
         android:label="fragment_pomodoro"
-        tools:layout="@layout/fragment_pomodoro" />
+        tools:layout="@layout/fragment_pomodoro" >
+        <action
+            android:id="@+id/action_pomodoroFragment_to_homepageFragment"
+            app:destination="@id/homepageFragment" />
+        <action
+            android:id="@+id/action_pomodoroFragment_to_statsFragment"
+            app:destination="@id/statsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/openingFragment"
         android:name="edu.sjsu.android.jams.OpeningFragment"
@@ -44,4 +51,13 @@
         android:name="edu.sjsu.android.jams.entries.EntryListFragment"
         android:label="fragment_entry_list"
         tools:layout="@layout/fragment_entry_item_list" />
+    <fragment
+        android:id="@+id/statsFragment"
+        android:name="edu.sjsu.android.jams.StatsFragment"
+        android:label="fragment_stats"
+        tools:layout="@layout/fragment_stats" >
+        <action
+            android:id="@+id/action_statsFragment_to_pomodoroFragment"
+            app:destination="@id/pomodoroFragment" />
+    </fragment>
 </navigation>

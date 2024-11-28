@@ -2,8 +2,9 @@ package edu.sjsu.android.jams;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import android.os.CountDownTimer;
 import android.util.Log;
@@ -11,11 +12,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class PomodoroFragment extends Fragment {
     private TextView timeText, sessionLengthText, breakLengthText, sessionStatus;
-    private Button startButton, resetButton, sessionIncrement, sessionDecrement, breakIncrement, breakDecrement;
+    private Button startButton, resetButton, sessionIncrement, sessionDecrement, breakIncrement, breakDecrement, myStats;
+    private ImageView backArrow;
 
     private CountDownTimer countDownTimer;
     private boolean timerRunning = false;
@@ -55,6 +58,8 @@ public class PomodoroFragment extends Fragment {
         sessionDecrement = view.findViewById(R.id.sessionDecrement);
         breakIncrement = view.findViewById(R.id.breakIncrement);
         breakDecrement = view.findViewById(R.id.breakDecrement);
+        myStats = view.findViewById(R.id.myStatsButton);
+        backArrow = view.findViewById(R.id.back_arrow_in_pomodoro_session);
 
         sessionLengthText.setText(String.valueOf(workDuration / 60 / 1000));
         breakLengthText.setText(String.valueOf(breakDuration / 60 / 1000));
@@ -66,7 +71,22 @@ public class PomodoroFragment extends Fragment {
         breakIncrement.setOnClickListener(v -> adjustBreakTime(1));
         breakDecrement.setOnClickListener(v -> adjustBreakTime(-1));
 
+        myStats.setOnClickListener(this::navigateToStats);
+        backArrow.setOnClickListener(this::backToHome);
+
         return view;
+    }
+
+    private void backToHome(View view) {
+        Log.d("test", "clicked backButton in pomodoro fragment");
+        NavController controller = Navigation.findNavController(view);
+        controller.navigate(R.id.action_pomodoroFragment_to_homepageFragment);
+    }
+
+    private void navigateToStats(View view) {
+        Log.d("test", "clicked myStatsButton in pomodoro fragment");
+        NavController controller = Navigation.findNavController(view);
+        controller.navigate(R.id.action_pomodoroFragment_to_statsFragment);
     }
 
     private void startOrPauseTimer() {

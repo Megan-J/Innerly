@@ -21,6 +21,8 @@
             android:layout_height="wrap_content"
             android:text="@string/pomodoro_session"
             android:textSize="36dp"
+            android:textStyle="bold"
+            android:layout_marginBottom="16dp"
             android:textColor="@color/white"
             app:layout_constraintBottom_toTopOf="@+id/timeText"
             app:layout_constraintEnd_toEndOf="parent"
@@ -32,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="25:00"
-            android:textSize="48sp"
+            android:textSize="68sp"
             android:textColor="#000000"
             android:padding="16dp"
             android:layout_marginBottom="16dp"
@@ -58,8 +60,8 @@
 
             <Button
                 android:id="@+id/sessionDecrement"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:backgroundTint="@color/dark_brown_theme_color"
                 android:fillColor="#FF6200EE"
                 android:text="-"
@@ -76,8 +78,8 @@
 
             <Button
                 android:id="@+id/sessionIncrement"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:backgroundTint="@color/dark_brown_theme_color"
                 android:fillColor="#FF6200EE"
                 android:text="+" />
@@ -97,8 +99,8 @@
 
                     <Button
                         android:id="@+id/breakDecrement"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
                         android:backgroundTint="@color/dark_brown_theme_color"
                         android:text="-"/>
 
@@ -113,8 +115,8 @@
 
                     <Button
                         android:id="@+id/breakIncrement"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
                         android:backgroundTint="@color/dark_brown_theme_color"
                         android:text="+"/>
 
@@ -157,22 +159,24 @@
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/timeText"
-            app:layout_constraintVertical_bias="0.772">
+            app:layout_constraintVertical_bias="0.7">
 
             <Button
                 android:id="@+id/startButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="150dp"
+                android:layout_height="70dp"
                 android:backgroundTint="@color/light_brown_theme_color"
-                android:text="Start" />
+                android:text="Start"
+                android:textSize="26dp" />
 
             <Button
                 android:id="@+id/resetButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="150dp"
+                android:layout_height="70dp"
                 android:layout_marginStart="16dp"
                 android:backgroundTint="@color/light_brown_theme_color"
-                android:text="Reset" />
+                android:text="Reset"
+                android:textSize="26dp" />
         </LinearLayout>
 
         <TextView
@@ -189,14 +193,49 @@
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="109dp"
-            android:layout_height="92dp"
+            android:layout_width="206dp"
+            android:layout_height="131dp"
             android:src="@drawable/cat_logo"
             app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/session_status"
-            app:layout_constraintVertical_bias="0.87" />
+            app:layout_constraintVertical_bias="0.93" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+            app:layout_constraintVertical_bias="0.69">
+
+            <Button
+                android:id="@+id/myStatsButton"
+                android:layout_width="200dp"
+                android:layout_height="60dp"
+                android:backgroundTint="#B08D63"
+                android:elevation="4dp"
+                android:text="MY STATISTICS"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/back_arrow_in_pomodoro_session"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="@drawable/back_arrow_icon"
+            app:layout_constraintBottom_toTopOf="@+id/pomodoro_session_title"
+            app:layout_constraintEnd_toStartOf="@+id/pomodoro_session_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
         </FrameLayout>

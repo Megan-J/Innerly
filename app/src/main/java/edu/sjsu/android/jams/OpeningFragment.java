@@ -12,11 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link OpeningFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class OpeningFragment extends Fragment {
 
     public OpeningFragment() {
