@@ -35,17 +35,12 @@
             android:id="@+id/action_homepageFragment_to_pomodoroFragment"
             app:destination="@id/pomodoroFragment" />
         <action
-            android:id="@+id/action_homepageFragment_to_goalItemFragment"
-            app:destination="@id/goalItemFragment" />
-        <action
             android:id="@+id/action_homepageFragment_to_entryListFragment"
             app:destination="@id/entryListFragment" />
+        <action
+            android:id="@+id/action_homepageFragment_to_goalFragment"
+            app:destination="@id/goalFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/goalItemFragment"
-        android:name="edu.sjsu.android.jams.goals.GoalItemFragment"
-        android:label="fragment_goal_item_list"
-        tools:layout="@layout/fragment_goal_item_list" />
     <fragment
         android:id="@+id/entryListFragment"
         android:name="edu.sjsu.android.jams.entries.EntryListFragment"
@@ -60,4 +55,8 @@
             android:id="@+id/action_statsFragment_to_pomodoroFragment"
             app:destination="@id/pomodoroFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/goalFragment"
+        android:name="edu.sjsu.android.jams.Goals.GoalFragment"
+        android:label="GoalFragment" />
 </navigation>

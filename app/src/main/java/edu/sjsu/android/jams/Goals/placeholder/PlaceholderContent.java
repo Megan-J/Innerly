@@ -1,4 +1,4 @@
-package edu.sjsu.android.jams.goals.placeholder;
+package edu.sjsu.android.jams.Goals.placeholder;
 
 import java.util.ArrayList;
 import java.util.HashMap;
