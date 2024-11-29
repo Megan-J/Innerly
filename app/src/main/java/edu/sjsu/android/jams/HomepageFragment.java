@@ -49,7 +49,7 @@ public class HomepageFragment extends Fragment {
     private void onClickComputer(View view) {
         Log.d("test", "clicked computer image in homepage fragment");
         NavController controller = Navigation.findNavController(view);
-        controller.navigate(R.id.action_homepageFragment_to_goalItemFragment);
+        controller.navigate(R.id.action_homepageFragment_to_goalFragment);
     }
 
     private void onClickBook(View view) {

@@ -25,12 +25,6 @@
         <action
             android:id="@+id/action_openingFragment_to_homepageFragment"
             app:destination="@id/homepageFragment" />
-        <action
-            android:id="@+id/action_openingFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
-        <action
-            android:id="@+id/action_openingFragment_to_signupFragment"
-            app:destination="@id/signupFragment" />
     </fragment>
     <fragment
         android:id="@+id/homepageFragment"
@@ -41,17 +35,12 @@
             android:id="@+id/action_homepageFragment_to_pomodoroFragment"
             app:destination="@id/pomodoroFragment" />
         <action
-            android:id="@+id/action_homepageFragment_to_goalItemFragment"
-            app:destination="@id/goalItemFragment" />
-        <action
             android:id="@+id/action_homepageFragment_to_entryListFragment"
             app:destination="@id/entryListFragment" />
+        <action
+            android:id="@+id/action_homepageFragment_to_goalFragment"
+            app:destination="@id/goalFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/goalItemFragment"
-        android:name="edu.sjsu.android.jams.goals.GoalItemFragment"
-        android:label="fragment_goal_item_list"
-        tools:layout="@layout/fragment_goal_item_list" />
     <fragment
         android:id="@+id/entryListFragment"
         android:name="edu.sjsu.android.jams.entries.EntryListFragment"
@@ -67,21 +56,7 @@
             app:destination="@id/pomodoroFragment" />
     </fragment>
     <fragment
-        android:id="@+id/loginFragment"
-        android:name="edu.sjsu.android.jams.LoginFragment"
-        android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
-        <action
-            android:id="@+id/action_loginFragment_to_homepageFragment"
-            app:destination="@id/homepageFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/signupFragment"
-        android:name="edu.sjsu.android.jams.SignupFragment"
-        android:label="fragment_signup"
-        tools:layout="@layout/fragment_signup" >
-        <action
-            android:id="@+id/action_signupFragment_to_homepageFragment"
-            app:destination="@id/homepageFragment" />
-    </fragment>
+        android:id="@+id/goalFragment"
+        android:name="edu.sjsu.android.jams.Goals.GoalFragment"
+        android:label="GoalFragment" />
 </navigation>
