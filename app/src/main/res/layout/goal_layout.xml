@@ -20,6 +20,6 @@
             tool:text="This is a Sample Goal inside the application."
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
-            android:buttonTint="@colors"/>
+            android:buttonTint="@color/green_theme_color"/>
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

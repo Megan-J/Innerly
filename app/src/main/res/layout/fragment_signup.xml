@@ -91,7 +91,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
-                android:id="@+id/loginButton"
+                android:id="@+id/signupButton_inSignup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
@@ -113,7 +113,9 @@
             android:textSize="16sp"
             android:clickable="true"
             android:focusable="true"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:paddingTop="13dp"
+            android:paddingBottom="13dp" />
 
     </LinearLayout>
 

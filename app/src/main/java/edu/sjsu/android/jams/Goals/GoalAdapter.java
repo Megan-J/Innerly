@@ -1,18 +1,15 @@
 package edu.sjsu.android.jams.Goals;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.List;
-
 import edu.sjsu.android.jams.MainActivity;
 import edu.sjsu.android.jams.R;
+import edu.sjsu.android.jams.Goals.Goal;
 
 public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.ViewHolder> {
 
