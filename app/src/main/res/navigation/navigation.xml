@@ -25,6 +25,12 @@
         <action
             android:id="@+id/action_openingFragment_to_homepageFragment"
             app:destination="@id/homepageFragment" />
+        <action
+            android:id="@+id/action_openingFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_openingFragment_to_signupFragment"
+            app:destination="@id/signupFragment" />
     </fragment>
     <fragment
         android:id="@+id/homepageFragment"
@@ -59,5 +65,23 @@
         <action
             android:id="@+id/action_statsFragment_to_pomodoroFragment"
             app:destination="@id/pomodoroFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="edu.sjsu.android.jams.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_homepageFragment"
+            app:destination="@id/homepageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signupFragment"
+        android:name="edu.sjsu.android.jams.SignupFragment"
+        android:label="fragment_signup"
+        tools:layout="@layout/fragment_signup" >
+        <action
+            android:id="@+id/action_signupFragment_to_homepageFragment"
+            app:destination="@id/homepageFragment" />
     </fragment>
 </navigation>
