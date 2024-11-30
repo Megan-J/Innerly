@@ -24,7 +24,6 @@
             android:layout_marginBottom="16dp"
             android:contentDescription="Mascot Image" />
 
-        <!-- Motto -->
         <TextView
             android:id="@+id/mottoText"
             android:layout_width="wrap_content"
@@ -63,7 +62,7 @@
                 app:startIconDrawable="@drawable/ic_email">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/inputEmail"
+                    android:id="@+id/inputEmail_signup"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textEmailAddress"
@@ -82,7 +81,7 @@
                 android:layout_marginTop="16dp">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/inputPassword"
+                    android:id="@+id/inputPassword_signup"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword"

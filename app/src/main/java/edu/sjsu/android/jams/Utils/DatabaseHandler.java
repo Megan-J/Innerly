@@ -15,8 +15,12 @@ import edu.sjsu.android.jams.Goals.Goal;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
 
+    // reference to sqlite database
+    private SQLiteDatabase db;
+
+    // GOALS
     private static final int VERSION = 1;
-    private static final String NAME = "goalDatabase";
+    private static final String NAME = "appDatabase";
     private static final String GOAL_TABLE = "goal";
     private static final String ID = "id";
     private static final String GOAL = "goal";
@@ -24,8 +28,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String CREATE_GOAL_TABLE = "CREATE TABLE " + GOAL_TABLE + "(" + ID +
             " INTEGER PRIMARY KEY AUTOINCREMENT, " + GOAL + " TEXT, " + STATUS + " INTEGER)";
 
-    // reference to sqlite database
-    private SQLiteDatabase db;
+    // USER ACCOUNT
+    private static final String USER_TABLE = "user";
+    private static final String COLUMN_EMAIL = "email";
+    private static final String COLUMN_PASSWORD = "password";
+    private static final String CREATE_USER_TABLE = "CREATE TABLE " + USER_TABLE + "("
+                                    + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                                    + COLUMN_EMAIL + " TEXT, "
+                                    + COLUMN_PASSWORD + " TEXT)";
+
 
     public DatabaseHandler(Context context){
         super(context, NAME, null, VERSION);
@@ -34,12 +45,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db){
         db.execSQL(CREATE_GOAL_TABLE);
+        db.execSQL(CREATE_USER_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){
         // drop the old table
         db.execSQL("DROP TABLE IF EXISTS " + GOAL_TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + USER_TABLE);
 
         // create new table
         onCreate(db);
@@ -49,6 +62,31 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db = this.getWritableDatabase();
     }
 
+    //********************USER METHODS******************//
+    public boolean insertUser(String email, String password){
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_EMAIL, email);
+        values.put(COLUMN_PASSWORD, password);
+
+        long result = db.insert(USER_TABLE, null, values);
+        return result > 0; // true if successful, else false
+    }
+
+    public Cursor getUser(String email){
+        return db.query(USER_TABLE, null, COLUMN_EMAIL + "=?", new String[]{email}, null, null, null);
+    }
+
+    public boolean validateUser(String email, String password){
+        Cursor cursor = db.query(USER_TABLE, new String[]{ID}, COLUMN_EMAIL + "=? AND " + COLUMN_PASSWORD + "=?",
+                new String[]{email, password}, null, null, null);
+        boolean isValidUser = (cursor != null && cursor.getCount() > 0);
+        if(cursor != null){
+            cursor.close();
+        }
+        return isValidUser; // true if valid, else false
+    }
+
+    //********************GOAL METHODS******************//
     public void insertGoal(Goal goal){
         ContentValues values = new ContentValues();
         values.put(GOAL, goal.getGoalTitle());
