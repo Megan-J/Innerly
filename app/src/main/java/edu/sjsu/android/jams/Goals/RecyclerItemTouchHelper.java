@@ -36,7 +36,7 @@ public class RecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback {
         final int index = viewHolder.getAdapterPosition();
         if(direction == ItemTouchHelper.LEFT){
             AlertDialog.Builder builder = new AlertDialog.Builder(adapter.getContext());
-            builder.setTitle("Delete Goal");
+            builder.setTitle("Delete");
             builder.setMessage("Are you sure you want to remove this goal?");
             builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                 @Override
@@ -72,12 +72,10 @@ public class RecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback {
         // Swiping to the left direction
         if(dX > 0){
             icon = ContextCompat.getDrawable(adapter.getContext(), R.drawable.edit_icon);
-            //background = new ColorDrawable(ContextCompat.getColor(adapter.getContext(), R.color.light_green_theme_color));
             background = new ColorDrawable(Color.GREEN);
         }
         else {
-            icon = ContextCompat.getDrawable(adapter.getContext(), R.drawable.edit_icon);
-            //background = new ColorDrawable(ContextCompat.getColor(adapter.getContext(), R.color.light_brown_theme_color));
+            icon = ContextCompat.getDrawable(adapter.getContext(), R.drawable.delete_icon);
             background = new ColorDrawable(Color.RED);
         }
 

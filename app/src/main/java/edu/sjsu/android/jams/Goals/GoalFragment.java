@@ -4,13 +4,17 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -31,6 +35,8 @@ public class GoalFragment extends Fragment implements DialogCloseListener {
     private DatabaseHandler db;
 
     private FloatingActionButton fab;
+
+    private ImageView backArrow;
 
 
     public GoalFragment() {
@@ -77,6 +83,8 @@ public class GoalFragment extends Fragment implements DialogCloseListener {
         Collections.reverse(goalList);
         goalsAdapter.setGoalList(goalList);
 
+        backArrow = view.findViewById(R.id.back_arrow_in_pomodoro_session);
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -84,7 +92,14 @@ public class GoalFragment extends Fragment implements DialogCloseListener {
             }
         });
 
+        backArrow.setOnClickListener(this::backToHome);
+
         return view;
+    }
+
+    private void backToHome(View view) {
+        NavController controller = Navigation.findNavController(view);
+        controller.navigate(R.id.action_goalFragment_to_homepageFragment);
     }
 
     @Override
