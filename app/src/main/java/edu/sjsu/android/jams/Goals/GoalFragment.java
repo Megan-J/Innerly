@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -46,6 +47,9 @@ public class GoalFragment extends Fragment implements DialogCloseListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Initialize database handler
+        db = new DatabaseHandler(this.getContext());
+        db.openDatabase();
     }
 
     @Override
@@ -53,10 +57,6 @@ public class GoalFragment extends Fragment implements DialogCloseListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_goal_main, container, false);
-
-        // Initialize database handler
-        db = new DatabaseHandler(this.getContext());
-        db.openDatabase();
 
         // Set up recyclerView
         goalsRecyclerView = view.findViewById(R.id.goalsRecyclerView);
@@ -69,6 +69,9 @@ public class GoalFragment extends Fragment implements DialogCloseListener {
         goalsRecyclerView.setAdapter(goalsAdapter);
 
         fab = view.findViewById(R.id.fab);
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new RecyclerItemTouchHelper(goalsAdapter));
+        itemTouchHelper.attachToRecyclerView(goalsRecyclerView);
 
         goalList = db.getAllGoals();
         Collections.reverse(goalList);

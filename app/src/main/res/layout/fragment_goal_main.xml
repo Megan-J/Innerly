@@ -1,20 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent"
+    android:background="@color/green_theme_color">
 
     <TextView
         android:id="@+id/goalsText"
-        android:layout_width="wrap_content"
+        android:layout_width="125dp"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:text="Goals"
-        android:textColor="@android:color/black"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="142dp"
         android:layout_marginTop="16dp"
-        android:textSize="32sp"/>
+        android:layout_marginEnd="144dp"
+        android:layout_marginBottom="16dp"
+        android:text="Goals"
+        android:textAlignment="center"
+        android:textColor="@android:color/white"
+        android:textSize="32sp"
+        android:textStyle="bold" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/goalsRecyclerView"
@@ -29,11 +34,11 @@
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
         android:layout_margin="32dp"
-        android:backgroundTint="@android:color/holo_green_dark"
-        android:src="@drawable/add_icon"/>
+        android:backgroundTint="@color/light_brown_theme_color"
+        android:src="@drawable/add_icon" />
 
 
 </RelativeLayout>

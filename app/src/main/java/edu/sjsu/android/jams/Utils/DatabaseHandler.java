@@ -20,8 +20,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String ID = "id";
     private static final String GOAL = "goal";
     private static final String STATUS = "status";
-    private static final String CREATE_GOAL_TABLE = "CREATE TABLE " + GOAL_TABLE + "(" + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + GOAL + "TEXT, " + STATUS + " INTEGER)";
+    private static final String CREATE_GOAL_TABLE = "CREATE TABLE " + GOAL_TABLE + "(" + ID +
+            " INTEGER PRIMARY KEY AUTOINCREMENT, " + GOAL + " TEXT, " + STATUS + " INTEGER)";
 
     // reference to sqlite database
     private SQLiteDatabase db;

@@ -109,6 +109,7 @@ public class AddNewGoal extends BottomSheetDialogFragment {
                     Goal goal = new Goal();
                     goal.setGoalTitle(text);
                     goal.setGoalStatus(0);
+                    db.insertGoal(goal);
                 }
                 dismiss();
             }

@@ -20,7 +20,7 @@ import edu.sjsu.android.jams.Utils.DatabaseHandler;
 public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.ViewHolder> {
 
     private Fragment parentFragment;
-    private Context context;
+    //private Context context;
     private List<Goal> goalList;
     private DatabaseHandler db;
 
@@ -66,6 +66,15 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.ViewHolder> {
     public void setGoalList(List<Goal> goalList){
         this.goalList = goalList;
         notifyDataSetChanged();
+    }
+
+    public Context getContext(){return parentFragment.getContext();}
+
+    public void deleteItem(int index){
+        Goal item = goalList.get(index);
+        db.deleteGoal(item.getGoalId());
+        goalList.remove(index);
+        notifyItemRemoved(index);
     }
 
     public void editItem(int index){
