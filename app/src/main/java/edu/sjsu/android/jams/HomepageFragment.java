@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 
 public class HomepageFragment extends Fragment {
@@ -28,8 +29,6 @@ public class HomepageFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-        }
     }
 
     @Override
@@ -40,10 +39,18 @@ public class HomepageFragment extends Fragment {
         ImageView pomodoroImage = view.findViewById(R.id.pomodoro_image);
         ImageView bookImage = view.findViewById(R.id.book_image);
         ImageView computerImage = view.findViewById(R.id.computer_image);
+        TextView logoutText = view.findViewById(R.id.logout_inHomepage);
         pomodoroImage.setOnClickListener(this::onClickPomodoro);
         bookImage.setOnClickListener(this::onClickBook);
         computerImage.setOnClickListener(this::onClickComputer);
+        logoutText.setOnClickListener(this::logout);
         return view;
+    }
+
+    private void logout(View view) {
+        Log.d("test", "clicked logout in homepage fragment");
+        NavController controller = Navigation.findNavController(view);
+        controller.navigate(R.id.action_homepageFragment_to_openingFragment);
     }
 
     private void onClickComputer(View view) {

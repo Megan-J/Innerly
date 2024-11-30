@@ -46,6 +46,9 @@
         <action
             android:id="@+id/action_homepageFragment_to_goalFragment"
             app:destination="@id/goalFragment" />
+        <action
+            android:id="@+id/action_homepageFragment_to_openingFragment"
+            app:destination="@id/openingFragment" />
     </fragment>
     <fragment
         android:id="@+id/entryListFragment"

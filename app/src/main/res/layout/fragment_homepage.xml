@@ -29,12 +29,12 @@
             android:id="@+id/window_image"
             android:layout_width="383dp"
             android:layout_height="391dp"
-            android:layout_marginStart="148dp"
+            android:layout_marginStart="184dp"
             android:src="@drawable/pixalated_window"
             app:layout_constraintBottom_toTopOf="@+id/computer_image"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.103" />
+            app:layout_constraintVertical_bias="0.097" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout"
@@ -93,6 +93,19 @@
                 app:layout_constraintEnd_toEndOf="@+id/book_image"
                 app:layout_constraintStart_toStartOf="@+id/book_image"
                 app:layout_constraintTop_toBottomOf="@+id/book_image" />
+
+            <TextView
+                android:id="@+id/logout_inHomepage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:text="LOGOUT"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textView3"
+                app:layout_constraintTop_toBottomOf="@+id/textView3"
+                app:layout_constraintVertical_bias="0.5"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
