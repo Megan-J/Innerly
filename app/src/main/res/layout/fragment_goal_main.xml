@@ -1,27 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent"
+    android:background="@color/green_theme_color">
+
+    <ImageView
+        android:id="@+id/back_arrow_in_pomodoro_session"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:background="@drawable/back_arrow_icon"
+        app:layout_constraintBottom_toTopOf="@+id/goalsText"
+        app:layout_constraintEnd_toStartOf="@+id/goalsText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/goalsText"
-        android:layout_width="wrap_content"
+        android:layout_width="165dp"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:text="Goals"
-        android:textColor="@android:color/black"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="126dp"
         android:layout_marginTop="16dp"
-        android:textSize="32sp"/>
+        android:layout_marginEnd="120dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/my_goals"
+        android:textAlignment="center"
+        android:textColor="@android:color/white"
+        android:textSize="32sp"
+        android:textStyle="bold" />
+
+
+    <ImageView
+        android:id="@+id/logoImage"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_below="@+id/goalsText"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="160dp"
+        android:layout_marginTop="-20dp"
+        android:layout_marginEnd="149dp"
+        android:layout_marginBottom="16dp"
+        android:contentDescription="Mascot Image"
+        android:src="@drawable/cat_logo" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/goalsRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/goalsText"
-        android:layout_marginTop="12dp"
+        android:layout_below="@+id/logoImage"
+        android:layout_marginTop="-30dp"
         android:nestedScrollingEnabled="true"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
@@ -29,11 +59,11 @@
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
         android:layout_margin="32dp"
-        android:backgroundTint="@android:color/holo_green_dark"
-        android:src="@drawable/add_icon"/>
+        android:backgroundTint="@color/light_brown_theme_color"
+        android:src="@drawable/add_icon" />
 
 
 </RelativeLayout>

@@ -6,4 +6,5 @@
     <color name="light_green_theme_color">#99BCC0</color>
     <color name="dark_brown_theme_color">#76453B</color>
     <color name="light_brown_theme_color">#B19470</color>
+    <color name="dark_grey_theme_color">#2D2D2D</color>
 </resources>

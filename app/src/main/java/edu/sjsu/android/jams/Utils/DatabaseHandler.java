@@ -6,6 +6,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,8 +21,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String ID = "id";
     private static final String GOAL = "goal";
     private static final String STATUS = "status";
-    private static final String CREATE_GOAL_TABLE = "CREATE TABLE " + GOAL_TABLE + "(" + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + GOAL + "TEXT, " + STATUS + " INTEGER)";
+    private static final String CREATE_GOAL_TABLE = "CREATE TABLE " + GOAL_TABLE + "(" + ID +
+            " INTEGER PRIMARY KEY AUTOINCREMENT, " + GOAL + " TEXT, " + STATUS + " INTEGER)";
 
     // reference to sqlite database
     private SQLiteDatabase db;
@@ -60,6 +61,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         List<Goal> goalList = new ArrayList<>();
         Cursor cursor = null;
         db.beginTransaction();
+        Log.d("Database Check: ", "Inside getting all goals method");
         try{
             cursor = db.query(GOAL_TABLE, null, null, null, null, null, null, null);
             if(cursor != null){
@@ -69,6 +71,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         if((cursor.getColumnIndex(ID) >= 0) && (cursor.getColumnIndex(GOAL) >=0) && (cursor.getColumnIndex(STATUS) >=0)){
                             goal.setGoalId(cursor.getInt(cursor.getColumnIndex(ID)));
                             goal.setGoalTitle(cursor.getString(cursor.getColumnIndex(GOAL)));
+                            Log.d("Database Check: ", "Retrieved Goals");
                             goal.setGoalStatus(cursor.getInt(cursor.getColumnIndex(STATUS)));
                         }
                         goalList.add(goal);

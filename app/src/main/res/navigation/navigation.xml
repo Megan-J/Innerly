@@ -67,7 +67,11 @@
     <fragment
         android:id="@+id/goalFragment"
         android:name="edu.sjsu.android.jams.Goals.GoalFragment"
-        android:label="GoalFragment" />
+        android:label="GoalFragment" >
+        <action
+            android:id="@+id/action_goalFragment_to_homepageFragment"
+            app:destination="@id/homepageFragment" />
+    </fragment>
     <fragment
         android:id="@+id/loginFragment"
         android:name="edu.sjsu.android.jams.LoginFragment"

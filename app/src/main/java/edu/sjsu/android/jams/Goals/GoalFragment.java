@@ -4,12 +4,17 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -31,6 +36,8 @@ public class GoalFragment extends Fragment implements DialogCloseListener {
 
     private FloatingActionButton fab;
 
+    private ImageView backArrow;
+
 
     public GoalFragment() {
         // Required empty public constructor
@@ -46,6 +53,9 @@ public class GoalFragment extends Fragment implements DialogCloseListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Initialize database handler
+        db = new DatabaseHandler(this.getContext());
+        db.openDatabase();
     }
 
     @Override
@@ -53,10 +63,6 @@ public class GoalFragment extends Fragment implements DialogCloseListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_goal_main, container, false);
-
-        // Initialize database handler
-        db = new DatabaseHandler(this.getContext());
-        db.openDatabase();
 
         // Set up recyclerView
         goalsRecyclerView = view.findViewById(R.id.goalsRecyclerView);
@@ -70,9 +76,14 @@ public class GoalFragment extends Fragment implements DialogCloseListener {
 
         fab = view.findViewById(R.id.fab);
 
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new RecyclerItemTouchHelper(goalsAdapter));
+        itemTouchHelper.attachToRecyclerView(goalsRecyclerView);
+
         goalList = db.getAllGoals();
         Collections.reverse(goalList);
         goalsAdapter.setGoalList(goalList);
+
+        backArrow = view.findViewById(R.id.back_arrow_in_pomodoro_session);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,7 +92,14 @@ public class GoalFragment extends Fragment implements DialogCloseListener {
             }
         });
 
+        backArrow.setOnClickListener(this::backToHome);
+
         return view;
+    }
+
+    private void backToHome(View view) {
+        NavController controller = Navigation.findNavController(view);
+        controller.navigate(R.id.action_goalFragment_to_homepageFragment);
     }
 
     @Override
