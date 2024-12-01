@@ -34,7 +34,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String COLUMN_PASSWORD = "password";
     private static final String CREATE_USER_TABLE = "CREATE TABLE " + USER_TABLE + "("
                                     + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                                    + COLUMN_EMAIL + " TEXT, "
+                                    + COLUMN_EMAIL + " TEXT UNIQUE, "
                                     + COLUMN_PASSWORD + " TEXT)";
 
 

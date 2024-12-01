@@ -28,7 +28,7 @@
             android:id="@+id/mottoText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="&lt;our motto&gt;"
+            android:text="Innerly: Focus, Reflect, Achieve."
             android:textColor="@android:color/white"
             android:textSize="18sp"
             android:layout_marginBottom="24dp" />
@@ -102,7 +102,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/signUpText"
+            android:id="@+id/dont_have_account_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Don’t have an account? Sign up"

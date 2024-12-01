@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import edu.sjsu.android.jams.Utils.DatabaseHandler;
@@ -44,6 +45,8 @@ public class LoginFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_login, container, false);
         loginButton = view.findViewById(R.id.loginButton_inLogin);
+        TextView dont_have_account = view.findViewById(R.id.dont_have_account_text);
+        dont_have_account.setOnClickListener(this::navigateToSignup);
 //        loginButton.setOnClickListener(this::onClick);
 
         emailText = view.findViewById(R.id.inputEmail_login);
@@ -81,5 +84,10 @@ public class LoginFragment extends Fragment {
         Log.d("test", "clicked login button in login fragment");
         NavController controller = Navigation.findNavController(view);
         controller.navigate(R.id.action_loginFragment_to_homepageFragment);
+    }
+
+    private void navigateToSignup(View view) {
+        NavController controller = Navigation.findNavController(view);
+        controller.navigate(R.id.action_loginFragment_to_signupFragment);
     }
 }
