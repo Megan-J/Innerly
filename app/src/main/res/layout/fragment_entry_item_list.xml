@@ -5,9 +5,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/page_padding"
+    android:paddingTop="25dp"
+    android:paddingStart="25dp"
+    android:paddingEnd="@dimen/page_padding"
     android:background="@color/green_theme_color"
     android:orientation="vertical"
+    tools:context=".entries.EntryListFragment"
     app:flow_verticalGap="10dp">
 
     <TextView
@@ -38,7 +41,7 @@
         android:layout_height="wrap_content"
         android:background="@color/green_theme_color"
         app:layoutManager="LinearLayoutManager"
-        tools:context=".entries.EntryListFragment"
+        tools:context=".entries.EntryListDateContent"
         tools:listitem="@layout/fragment_entry_item" />
 
 

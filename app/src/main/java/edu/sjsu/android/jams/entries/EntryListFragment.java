@@ -10,15 +10,16 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import edu.sjsu.android.jams.R;
 
 /**
- * A fragment representing a list of Items.
+ * A fragment representing a list of Journal Entries.
  */
 public class EntryListFragment extends Fragment {
-    ArrayList<String> data = new ArrayList<>();
-    EntryListItemAdapter adapter;
+    List<EntryListItemDateContent> data = new ArrayList<>();
+    EntryListItemDateContentAdapter adapter;
     RecyclerView recyclerView;
 
     /**
@@ -28,9 +29,15 @@ public class EntryListFragment extends Fragment {
     public EntryListFragment() {
     }
 
+    /**
+     * Starting point for fragment
+     * @param savedInstanceState If the fragment is being re-created from
+     * a previous saved state, this is the state.
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        data = generateSampleData();
     }
 
     @Override
@@ -38,17 +45,28 @@ public class EntryListFragment extends Fragment {
                              Bundle savedInstanceState) {
         // code for inflation: initializes layout (UI) for fragment
         View view = inflater.inflate(R.layout.fragment_entry_item_list, container, false);
-//        // generate data from "Entry 0" to "Entry 5"
-//        for (int i = 1; i <= 5; i++) {
-//            data.add("Entry " + i);
-//        }
-//        // construct adapter with data argument
-//        adapter = new EntryListItemAdapter(data);
-//        // cast the view to RecyclerView
-//        recyclerView = (RecyclerView) view;
-//
-//        // set the adapter for RecyclerView
-//        recyclerView.setAdapter(adapter);
+        // initialize receiver view
+        recyclerView = view.findViewById(R.id.entry_list_date_and_content_recycler_view);
+        // construct adapter with data argument
+        adapter = new EntryListItemDateContentAdapter(data);
+        // set the adapter for RecyclerView
+        recyclerView.setAdapter(adapter);
         return view;
+    }
+
+    /**
+     * Sample data to replace with database values
+     * @return ArrayList of journal entries containing date and content
+     */
+    private List<EntryListItemDateContent> generateSampleData() {
+        List<EntryListItemDateContent> sampleData = new ArrayList<>();
+        for (int i = 1; i <= 5; i++) {
+            List<EntryListItemContent> entries = new ArrayList<>();
+            for (int j = 1; j <= 3; j++) {
+                entries.add(new EntryListItemContent("Title " + j, "content preview for the entry"));
+            }
+            sampleData.add(new EntryListItemDateContent("Date " + i, entries));
+        }
+        return sampleData;
     }
 }
