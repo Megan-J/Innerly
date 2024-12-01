@@ -11,8 +11,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import edu.sjsu.android.jams.Utils.DatabaseHandler;
 
 public class LoginFragment extends Fragment {
+
+    private EditText emailText, passwordText;
+    private Button loginButton;
+    private DatabaseHandler databaseHandler;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -35,9 +43,38 @@ public class LoginFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_login, container, false);
-        Button login = view.findViewById(R.id.loginButton_inLogin);
-        login.setOnClickListener(this::onClick);
+        loginButton = view.findViewById(R.id.loginButton_inLogin);
+//        loginButton.setOnClickListener(this::onClick);
+
+        emailText = view.findViewById(R.id.inputEmail_login);
+        passwordText = view.findViewById(R.id.inputPassword_login);
+
+        databaseHandler = new DatabaseHandler(getContext());
+        databaseHandler.openDatabase();
+
+        loginButton.setOnClickListener(this::loginUser);
+
         return view;
+    }
+
+    private void loginUser(View view) {
+        String email = emailText.getText().toString().trim();
+        String password = passwordText.getText().toString().trim();
+
+        if(!email.isEmpty() && !password.isEmpty()){
+            boolean isValidUser = databaseHandler.validateUser(email, password);
+            if(isValidUser){
+                Toast.makeText(getContext(), "Login successful!", Toast.LENGTH_SHORT).show();
+                onClick(view);
+            }
+            else{
+                Toast.makeText(getContext(), "Invalid email or password. Try again!", Toast.LENGTH_SHORT).show();
+            }
+        }
+        else{
+            Toast.makeText(getContext(), "Please fill all fields.", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     private void onClick(View view) {
