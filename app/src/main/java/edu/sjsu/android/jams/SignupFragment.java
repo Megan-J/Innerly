@@ -1,5 +1,7 @@
 package edu.sjsu.android.jams;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -69,6 +71,12 @@ public class SignupFragment extends Fragment {
             boolean isInserted = databaseHandler.insertUser(email, password);
             if(isInserted){
                 Toast.makeText(getContext(), "Signup successful!", Toast.LENGTH_SHORT).show();
+                int userID = databaseHandler.getUserId(email, password);
+                SharedPreferences sharedPreferences = requireContext().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putInt("user_id", userID); // Use the `user_id` obtained
+                editor.apply();
+
                 onClick(view);
             }
             else{

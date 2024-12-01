@@ -1,6 +1,8 @@
 package edu.sjsu.android.jams;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
@@ -15,6 +17,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
+import edu.sjsu.android.jams.Utils.DatabaseHandler;
+
 public class PomodoroFragment extends Fragment {
     private TextView timeText, sessionLengthText, breakLengthText, sessionStatus;
     private Button startButton, resetButton, sessionIncrement, sessionDecrement, breakIncrement, breakDecrement, myStats;
@@ -24,9 +32,16 @@ public class PomodoroFragment extends Fragment {
     private boolean timerRunning = false;
     private boolean workSession = true;
 
-    private long workDuration = 25 * 60 * 1000;
+    private long workDuration = 1 * 60 * 1000;
     private long breakDuration = 2 * 60 * 1000;
     private long timeRemaining = workDuration;
+
+    private DatabaseHandler databaseHandler;
+
+    private int userID;
+    private double totalHoursFocused = 0;
+    private int totalSessions = 0;
+    private double hoursFocusedToday = 0;
 
     public PomodoroFragment() {
         // Required empty public constructor
@@ -42,6 +57,8 @@ public class PomodoroFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SharedPreferences sharedPreferences = requireContext().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
+        userID = sharedPreferences.getInt("user_id", -1);
     }
 
     @Override
@@ -113,6 +130,8 @@ public class PomodoroFragment extends Fragment {
                     timeRemaining = breakDuration;
                     workSession = false;
                     sessionStatus.setText("Break Start!");
+                    Log.d("test", "trying to update pomodoro stats now");
+                    updatePomodoroStats();
                 }
                 else{
                     timeRemaining = workDuration;
@@ -125,6 +144,58 @@ public class PomodoroFragment extends Fragment {
         }.start();
         timerRunning = true;
 //        startButton.setText("Pause");
+    }
+
+    public void updatePomodoroStats(){
+        Log.d("test", "in updatePomodoroStats method");
+        if (userID == -1) {
+            Log.e("test", "User ID is -1");
+            return;
+        }
+        else{
+            Log.d("test", "User ID is " + userID);
+        }
+
+        Log.d("test", "Trying to initialize DatabaseHandler");
+        databaseHandler = new DatabaseHandler(this.getContext());
+        databaseHandler.openDatabase();
+        Log.d("test", "DatabaseHandler initialized successfully");
+        String currentDate = getCurrentDate();
+        Log.d("test", "currentDate: " + currentDate);
+        double sessionHours = workDuration / (1000.0 * 60.0 * 60.0);
+        Log.d("test", "sessionHours: " + sessionHours);
+        boolean exists = databaseHandler.doesPomodoroStatExist(userID, currentDate);
+//        boolean exists = false;
+//        try {
+//            exists = databaseHandler.doesPomodoroStatExist(userID, currentDate);
+//            Log.d("test", "Does Pomodoro stat exist: " + exists);
+//        } catch (Exception e) {
+//            Log.e("test", "Error in doesPomodoroStatExist: " + e.getMessage());
+//        }
+//
+//        Log.d("test", "Does Pomodoro stat exist: " + exists);
+//        Log.d("test", "Today Hours Focused: " + databaseHandler.getTodayHoursFocused(userID, currentDate));
+//        Log.d("test", "Total Hours Focused: " + databaseHandler.getTotalHoursFocused(userID));
+//        Log.d("test", "Total Pomodoro Sessions: " + databaseHandler.getTotalPomodoroSessions(userID));
+
+        if(exists){ // pomo stats already exist
+            double currentHoursToday = sessionHours + databaseHandler.getTodayHoursFocused(userID, currentDate);
+            double currentTotalHours = sessionHours + databaseHandler.getTotalHoursFocused(userID);
+            int currentTotalSessions = databaseHandler.getTotalPomodoroSessions(userID) + 1;
+            boolean updateSuccess = databaseHandler.updatePomodoroStats(userID, currentDate, currentHoursToday, currentTotalHours, currentTotalSessions);
+            if(!updateSuccess){
+                Log.e("test", "Failed to update pomodoro stats");
+            }
+        }
+        else{ // pomo stats don't exist
+            databaseHandler.insertPomodoroStat(userID, currentDate, sessionHours, sessionHours, 1);
+        }
+        Log.d("test", "Pomodoro stats updated for user ID: " + userID);
+    }
+
+    private String getCurrentDate() {
+        SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy", Locale.getDefault());
+        return sdf.format(new Date());
     }
 
     @SuppressLint("DefaultLocale")
