@@ -72,10 +72,12 @@
     <string name="PromptsIntro1">Looking for reflection prompts?</string>
     <string name="PromptsIntro2">Click any of the tabs below!</string>
     <string name="mascot_image">Mascot Image</string>
-    <string name="argument_key">question_category</string>
+    <string name="argument_key">selected_category</string>
     <string name="category_name">Category Name</string>
     <string name="choose_a_new_prompt">Choose a new prompt?</string>
     <string name="title">Title...</string>
     <string name="type_your_thoughts_here">Type your thoughts here...</string>
     <string name="delete">Delete</string>
+    <string name="custom_innerly_questions">custom innerly questions</string>
+    <string name="what_is_on_your_mind">What is on your mind?</string>
 </resources>
