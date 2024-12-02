@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -37,6 +38,21 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                     + COLUMN_EMAIL + " TEXT UNIQUE, "
                                     + COLUMN_PASSWORD + " TEXT)";
 
+    // POMODORO INFORMATION
+    private static final String POMODORO_TABLE = "pomodoro";
+    private static final String COLUMN_USER_ID = "user_id";
+    private static final String COLUMN_DATE = "date";
+    private static final String COLUMN_HOURS_FOCUSED_TODAY = "hours_focused_today";
+    private static final String COLUMN_TOTAL_HOURS_FOCUSED = "total_hours_focused";
+    private static final String COLUMN_TOTAL_SESSIONS = "total_sessions";
+    private static final String CREATE_POMODORO_TABLE = "CREATE TABLE " + POMODORO_TABLE + " (" +
+                                                        ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                                                        COLUMN_USER_ID + " INTEGER, " +
+                                                        COLUMN_DATE + " TEXT, " +
+                                                        COLUMN_HOURS_FOCUSED_TODAY + " REAL, " +
+                                                        COLUMN_TOTAL_HOURS_FOCUSED + " REAL, " +
+                                                        COLUMN_TOTAL_SESSIONS + " INTEGER, " +
+                                                        "FOREIGN KEY(" + COLUMN_USER_ID + ") REFERENCES user(id))";
 
     public DatabaseHandler(Context context){
         super(context, NAME, null, VERSION);
@@ -46,6 +62,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db){
         db.execSQL(CREATE_GOAL_TABLE);
         db.execSQL(CREATE_USER_TABLE);
+//        db.execSQL(CREATE_POMODORO_TABLE);
+        try {
+            db.execSQL(CREATE_POMODORO_TABLE);
+            Log.e("test", "Created Pomodoro table");
+        } catch (SQLException e) {
+            Log.e("test", "Error creating Pomodoro table", e);
+        }
     }
 
     @Override
@@ -53,6 +76,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // drop the old table
         db.execSQL("DROP TABLE IF EXISTS " + GOAL_TABLE);
         db.execSQL("DROP TABLE IF EXISTS " + USER_TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + POMODORO_TABLE);
 
         // create new table
         onCreate(db);
@@ -60,6 +84,88 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     public void openDatabase(){
         db = this.getWritableDatabase();
+    }
+
+    //********************STATS METHODS******************//
+    public boolean insertPomodoroStat(int userId, String date, double hoursFocusedToday, double totalHoursFocused, int totalSessions){
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_USER_ID, userId);
+        values.put(COLUMN_DATE, date);
+        values.put(COLUMN_HOURS_FOCUSED_TODAY, hoursFocusedToday);
+        values.put(COLUMN_TOTAL_HOURS_FOCUSED, totalHoursFocused);
+        values.put(COLUMN_TOTAL_SESSIONS, totalSessions);
+
+        long result = db.insert(POMODORO_TABLE, null, values);
+        return result > 0;
+    }
+
+    public boolean updatePomodoroStats(int userId, String date, double hoursFocusedToday, double totalHoursFocused, int totalSessions){
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_HOURS_FOCUSED_TODAY, hoursFocusedToday);
+        values.put(COLUMN_TOTAL_HOURS_FOCUSED, totalHoursFocused);
+        values.put(COLUMN_TOTAL_SESSIONS, totalSessions);
+
+        int result = db.update(POMODORO_TABLE, values, COLUMN_USER_ID + "=? AND " + COLUMN_DATE + "=?",
+                new String[]{String.valueOf(userId), date});
+        return result > 0;
+    }
+
+    public boolean doesPomodoroStatExist(int userId, String date) {
+        Cursor cursor = db.query(POMODORO_TABLE,
+                new String[]{COLUMN_USER_ID},
+                COLUMN_USER_ID + "=? AND " + COLUMN_DATE + "=?",
+                new String[]{String.valueOf(userId), date},
+                null, null, null);
+
+        boolean exists = (cursor != null && cursor.getCount() > 0);
+        if (cursor != null) {
+            cursor.close();
+        }
+        return exists;
+    }
+
+    public Cursor getPomodoroStats(int userId){
+        return db.query(POMODORO_TABLE, null, COLUMN_USER_ID + "=?", new String[]{String.valueOf(userId)}, null, null, null);
+    }
+
+    @SuppressLint("Range")
+    public double getTodayHoursFocused(int userId, String date) {
+        double hoursFocused = 0;
+        Cursor cursor = db.query(POMODORO_TABLE,
+                new String[]{COLUMN_HOURS_FOCUSED_TODAY},
+                COLUMN_USER_ID + "=? AND " + COLUMN_DATE + "=?",
+                new String[]{String.valueOf(userId), date},
+                null, null, null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            hoursFocused = cursor.getDouble(cursor.getColumnIndex(COLUMN_HOURS_FOCUSED_TODAY));
+            cursor.close();
+        }
+        return hoursFocused;
+    }
+
+    public double getTotalHoursFocused(int userId) {
+        double totalHours = 0;
+        Cursor cursor = db.rawQuery("SELECT SUM(" + COLUMN_TOTAL_HOURS_FOCUSED + ") FROM " + POMODORO_TABLE
+                + " WHERE " + COLUMN_USER_ID + "=?", new String[]{String.valueOf(userId)});
+
+        if (cursor != null && cursor.moveToFirst()) {
+            totalHours = cursor.getDouble(0);
+            cursor.close();
+        }
+        return totalHours;
+    }
+
+    public int getTotalPomodoroSessions(int userId) {
+        int totalSessions = 0;
+        Cursor cursor = db.rawQuery("SELECT SUM(" + COLUMN_TOTAL_SESSIONS + ") FROM " + POMODORO_TABLE
+                + " WHERE " + COLUMN_USER_ID + "=?", new String[]{String.valueOf(userId)});
+
+        if (cursor != null && cursor.moveToFirst()) {
+            totalSessions = cursor.getInt(0);
+            cursor.close();
+        }
+        return totalSessions;
     }
 
     //********************USER METHODS******************//
@@ -70,6 +176,23 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         long result = db.insert(USER_TABLE, null, values);
         return result > 0; // true if successful, else false
+    }
+
+    public int getUserId(String email, String password){
+        Cursor cursor = db.query(
+                USER_TABLE,
+                new String[]{ID},
+                COLUMN_EMAIL + "=? AND " + COLUMN_PASSWORD + "=?",
+                new String[]{email, password},
+                null, null, null
+        );
+
+        if (cursor != null && cursor.moveToFirst()) {
+            @SuppressLint("Range") int userId = cursor.getInt(cursor.getColumnIndex(ID));
+            cursor.close();
+            return userId;
+        }
+        return -1;
     }
 
     public Cursor getUser(String email){
@@ -84,6 +207,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             cursor.close();
         }
         return isValidUser; // true if valid, else false
+    }
+
+    public int deleteDataById(int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete(USER_TABLE, "ID = ?", new String[]{String.valueOf(id)});
     }
 
     //********************GOAL METHODS******************//

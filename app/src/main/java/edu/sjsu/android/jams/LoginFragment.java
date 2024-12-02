@@ -1,5 +1,7 @@
 package edu.sjsu.android.jams;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -14,6 +16,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.Objects;
 
 import edu.sjsu.android.jams.Utils.DatabaseHandler;
 
@@ -54,7 +58,6 @@ public class LoginFragment extends Fragment {
 
         databaseHandler = new DatabaseHandler(getContext());
         databaseHandler.openDatabase();
-
         loginButton.setOnClickListener(this::loginUser);
 
         return view;
@@ -68,6 +71,12 @@ public class LoginFragment extends Fragment {
             boolean isValidUser = databaseHandler.validateUser(email, password);
             if(isValidUser){
                 Toast.makeText(getContext(), "Login successful!", Toast.LENGTH_SHORT).show();
+                int userID = databaseHandler.getUserId(email, password);
+                SharedPreferences sharedPreferences = requireContext().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putInt("user_id", userID); // Use the `user_id` obtained
+                editor.apply();
+
                 onClick(view);
             }
             else{
