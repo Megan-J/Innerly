@@ -15,9 +15,15 @@ import edu.sjsu.android.jams.R;
 public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.QuestionViewHolder> {
 
     private final List<String> questionList; // List of questions
+    private final OnQuestionClickListener clickListener;
 
-    public QuestionAdapter(List<String> questionList) {
+    public interface OnQuestionClickListener {
+        void onQuestionClick(String question);
+    }
+
+    public QuestionAdapter(List<String> questionList, OnQuestionClickListener listener) {
         this.questionList = questionList;
+        this.clickListener = listener;
     }
 
     @NonNull
@@ -33,6 +39,13 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
         // Bind the data to the ViewHolder
         String question = questionList.get(position);
         holder.questionText.setText(question);
+
+        // Set up click listener for each question
+        holder.questionText.setOnClickListener(v -> {
+            if (clickListener != null) {
+                clickListener.onQuestionClick(question); // Trigger the click event
+            }
+        });
     }
 
     @Override
