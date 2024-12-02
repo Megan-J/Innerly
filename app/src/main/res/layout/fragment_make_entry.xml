@@ -5,174 +5,185 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="25dp"
-    android:paddingStart="25dp"
-    android:paddingEnd="@dimen/page_padding"
+    android:padding="@dimen/page_padding"
     android:background="@color/green_theme_color"
     android:orientation="vertical"
     tools:context=".entries.EntryListFragment"
     app:flow_verticalGap="10dp">
 
-    <ImageView
-        android:id="@+id/back_arrow"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:background="@drawable/back_arrow_icon"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-    <ImageView
-        android:id="@+id/logoImage"
-        android:layout_width="120dp"
-        android:layout_height="100dp"
-        android:src="@drawable/cat_logo"
-        android:layout_gravity="center"
-        android:contentDescription="@string/mascot_image"/>
-
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <androidx.cardview.widget.CardView
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="10dp"
-            app:cardCornerRadius="10dp">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@color/light_brown_theme_color">
-                <Button
-                    android:id="@+id/change_prompt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:text="@string/what_is_on_your_mind"
-                    android:clickable="false"
-                    android:textColor="@android:color/white"
-                    android:textAllCaps="true"
-                    android:textSize="@dimen/text_size"
-                    app:backgroundTint="@color/light_brown_theme_color"
-                    />
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-
-        <TextView
-            android:id="@+id/prompt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/choose_a_new_prompt"
-            android:textAppearance="?attr/textAppearanceListItem"
-            android:textColor="@color/light_green_theme_color"
-            android:textSize="@dimen/text_size"/>
-
-    </LinearLayout>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:background="@color/light_green_theme_color"
-        android:orientation="vertical"
-        app:cardCornerRadius="@dimen/border_radius"
-        app:layout_constraintStart_toStartOf="@+id/prompt"
-        app:layout_constraintTop_toBottomOf="@+id/prompt">
+        android:layout_height="match_parent"
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/light_green_theme_color"
-            android:minHeight="450dp"
-            android:orientation="vertical"
-            android:padding="@dimen/page_padding">
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/linearLayout"
+            <ImageView
+                android:id="@+id/back_arrow"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:background="@drawable/back_arrow_icon"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/logoImage"
+                android:layout_width="120dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:contentDescription="@string/mascot_image"
+                android:src="@drawable/cat_logo" />
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-                <Button
-                    android:id="@+id/date_btn"
-                    android:layout_width="wrap_content"
+                <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Select Date"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:layout_marginVertical="10dp"
+                    app:cardCornerRadius="10dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/light_brown_theme_color"
+                        android:orientation="vertical">
+
+                        <Button
+                            android:id="@+id/change_prompt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:clickable="false"
+                            android:text="@string/what_is_on_your_mind"
+                            android:textAllCaps="true"
+                            android:textColor="@android:color/white"
+                            android:textSize="@dimen/text_size"
+                            app:backgroundTint="@color/light_brown_theme_color" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
 
                 <TextView
-                    android:id="@+id/date"
+                    android:id="@+id/prompt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/choose_a_new_prompt"
+                    android:textAppearance="?attr/textAppearanceListItem"
+                    android:textColor="@color/light_green_theme_color"
+                    android:textSize="@dimen/text_size" />
+
+            </LinearLayout>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@color/light_green_theme_color"
+                android:orientation="vertical"
+                app:cardCornerRadius="@dimen/border_radius"
+                app:layout_constraintStart_toStartOf="@+id/prompt"
+                app:layout_constraintTop_toBottomOf="@+id/prompt">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/light_green_theme_color"
+                    android:minHeight="450dp"
+                    android:orientation="vertical"
+                    android:padding="@dimen/page_padding">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/linearLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <Button
+                            android:id="@+id/date_btn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Select Date"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:textSize="@dimen/text_size"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/date_btn"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.551" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <EditText
+                        android:id="@+id/title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:hint="@string/title"
+                        android:inputType="text"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/entry_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:gravity="start|top"
+                        android:hint="@string/type_your_thoughts_here"
+                        android:inputType="textMultiLine"
+                        android:textSize="@dimen/text_size" />
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <Button
+                    android:id="@+id/save_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text=""
-                    android:textSize="@dimen/text_size"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/date_btn"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.551" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    android:layout_marginTop="20dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/light_brown_theme_color"
+                    android:text="@string/save" />
 
-            <EditText
-                android:id="@+id/title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="@string/title"
-                android:inputType="text"
-                android:textStyle="bold" />
+                <!-- Spacer (invisible) to fill the space between the buttons -->
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
 
-            <EditText
-                android:id="@+id/entry_content"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:gravity="start|top"
-                android:hint="@string/type_your_thoughts_here"
-                android:inputType="textMultiLine"
-                android:textSize="@dimen/text_size" />
+                <Button
+                    android:id="@+id/delete_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/light_brown_theme_color"
+                    android:text="@string/delete" />
+
+            </LinearLayout>
         </LinearLayout>
-
-    </androidx.cardview.widget.CardView>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        android:weightSum="3">
-
-    <Button
-        android:id="@+id/save_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_weight="1"
-        android:backgroundTint="@color/light_brown_theme_color"
-        android:text="@string/save" />
-
-    <!-- Spacer (invisible) to fill the space between the buttons -->
-    <Space
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"/>
-
-    <Button
-        android:id="@+id/delete_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_weight="1"
-        android:backgroundTint="@color/light_brown_theme_color"
-        android:text="@string/delete" />
-
-    </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>
