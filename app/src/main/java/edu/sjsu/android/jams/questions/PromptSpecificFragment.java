@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import edu.sjsu.android.jams.R;
 import edu.sjsu.android.jams.databinding.FragmentPromptSpecificBinding;
@@ -28,10 +29,8 @@ public class PromptSpecificFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Bundle argument = getArguments();
         if (getArguments() != null) {
-            String key = requireContext().getString(R.string.argument_key);
-            questionCategory = getArguments().getParcelable(key);
+            questionCategory = getArguments().getParcelable(getString(R.string.argument_key));
         }
     }
 
@@ -47,13 +46,23 @@ public class PromptSpecificFragment extends Fragment {
         recyclerView.setAdapter(questionAdapter);
 
         backArrow = binding.getRoot().findViewById(R.id.back_arrow_in_prompts_specific);
-        backArrow.setOnClickListener(v -> backToHome(v));
+        backArrow.setOnClickListener(v -> navigateBack(v));
 
         return binding.getRoot();
     }
 
-    private void backToHome(View view) {
-        Log.d("test", "clicked backButton in prompt all fragment");
+    private void onQuestionSelected(String selectedQuestion) {
+        // Show Toast for confirmation
+        Toast.makeText(getContext(), "Do you want this question as your prompt?", Toast.LENGTH_SHORT).show();
+
+        // Navigate back to MakeEntryFragment with the selected question
+        NavController controller = Navigation.findNavController(getView());
+        Bundle bundle = new Bundle();
+        bundle.putString("selected_question", selectedQuestion);
+        controller.navigate(R.id.action_promptSpecificFragment_to_makeEntryFragment, bundle);
+    }
+
+    private void navigateBack(View view) {
         NavController controller = Navigation.findNavController(view);
         controller.navigate(R.id.action_promptSpecificFragment_to_promptAllFragment);
     }

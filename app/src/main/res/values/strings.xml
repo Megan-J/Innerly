@@ -74,4 +74,8 @@
     <string name="mascot_image">Mascot Image</string>
     <string name="argument_key">question_category</string>
     <string name="category_name">Category Name</string>
+    <string name="choose_a_new_prompt">Choose a new prompt?</string>
+    <string name="title">Title...</string>
+    <string name="type_your_thoughts_here">Type your thoughts here...</string>
+    <string name="delete">Delete</string>
 </resources>
