@@ -109,10 +109,14 @@
     <fragment
         android:id="@+id/promptAllFragment"
         android:name="edu.sjsu.android.jams.questions.PromptAllFragment"
-        android:label="PromptAllFragment" >
+        android:label="PromptAllFragment"
+        tools:layout="@layout/fragment_prompt_all">
         <action
             android:id="@+id/action_promptAllFragment_to_entryListFragment"
             app:destination="@id/entryListFragment" />
+        <action
+            android:id="@+id/action_promptAllFragment_to_promptSpecificFragment"
+            app:destination="@id/promptSpecificFragment" />
     </fragment>
     <fragment
         android:id="@+id/makeEntryFragment"
@@ -122,5 +126,14 @@
         <action
             android:id="@+id/action_makeEntryFragment_to_entryListFragment"
             app:destination="@id/entryListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/promptSpecificFragment"
+        android:name="edu.sjsu.android.jams.questions.PromptSpecificFragment"
+        android:label="PromptSpecificFragment"
+        tools:layout="@layout/fragment_prompt_specific">
+        <action
+            android:id="@+id/action_promptSpecificFragment_to_promptAllFragment"
+            app:destination="@id/promptAllFragment" />
     </fragment>
 </navigation>

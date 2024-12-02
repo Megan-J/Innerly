@@ -5,36 +5,53 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
-public class QuestionCategory {
+import java.util.List;
+
+public class QuestionCategory implements Parcelable{
 
     private int category;
-    private int questions;
+    private List<String> questions;
 
-    public QuestionCategory(int category) {
+    public QuestionCategory(int category, List<String> questions) {
         this.category = category;
         this.questions = questions;
     }
 
-//    protected QuestionCategory(Parcel in) {
-//        questions = in.readInt();
-//    }
-
-    public int getCategory() {
+    public int getCategory(){
         return category;
     }
 
-    public int getQuestions() {
+    public List<String> getQuestions() {
         return questions;
     }
 
-//    @Override
-//    public int describeContents() {
-//        return 0;
-//    }
-//
-//    @Override
-//    public void writeToParcel(@NonNull Parcel parcel, int i) {
-//
-//    }
+    // Parcelable methods for passing this object in a bundle (if necessary)
+    protected QuestionCategory(Parcel in) {
+        category = in.readInt();
+        questions = in.createStringArrayList();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(category);
+        dest.writeStringList(questions);
+    }
+
+    public static final Creator<QuestionCategory> CREATOR = new Creator<QuestionCategory>() {
+        @Override
+        public QuestionCategory createFromParcel(Parcel in) {
+            return new QuestionCategory(in);
+        }
+
+        @Override
+        public QuestionCategory[] newArray(int size) {
+            return new QuestionCategory[size];
+        }
+    };
 
 }

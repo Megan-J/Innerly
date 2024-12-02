@@ -3,64 +3,58 @@ package edu.sjsu.android.jams.questions;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import edu.sjsu.android.jams.R;
+import edu.sjsu.android.jams.databinding.FragmentPromptSpecificBinding;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link PromptSpecificFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class PromptSpecificFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private QuestionCategory questionCategory;
+    private ImageView backArrow;
 
     public PromptSpecificFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment PromptSpecificFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static PromptSpecificFragment newInstance(String param1, String param2) {
-        PromptSpecificFragment fragment = new PromptSpecificFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Bundle argument = getArguments();
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            String key = requireContext().getString(R.string.argument_key);
+            questionCategory = getArguments().getParcelable(key);
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_prompt_specific, container, false);
+        FragmentPromptSpecificBinding binding = FragmentPromptSpecificBinding.inflate(inflater);
+        binding.category.setText(questionCategory.getCategory());
+
+        RecyclerView recyclerView = binding.getRoot().findViewById(R.id.questions);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        QuestionAdapter questionAdapter = new QuestionAdapter(questionCategory.getQuestions());
+        recyclerView.setAdapter(questionAdapter);
+
+        backArrow = binding.getRoot().findViewById(R.id.back_arrow_in_prompts_specific);
+        backArrow.setOnClickListener(v -> backToHome(v));
+
+        return binding.getRoot();
+    }
+
+    private void backToHome(View view) {
+        Log.d("test", "clicked backButton in prompt all fragment");
+        NavController controller = Navigation.findNavController(view);
+        controller.navigate(R.id.action_promptSpecificFragment_to_promptAllFragment);
     }
 }

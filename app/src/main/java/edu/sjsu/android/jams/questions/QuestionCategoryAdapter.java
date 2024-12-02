@@ -40,10 +40,7 @@ public class QuestionCategoryAdapter extends RecyclerView.Adapter<QuestionCatego
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         QuestionCategory questionCategory = questionCategoryList.get(position);
-
-        // Set the text of the button with the category name or a related value
-        // In this case, just setting the number of questions as a placeholder
-        holder.categoryButton.setText("Category " + questionCategory.getCategory() + " - ");
+        holder.categoryButton.setText(questionCategory.getCategory());
     }
 
     @Override

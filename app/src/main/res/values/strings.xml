@@ -20,8 +20,58 @@
     <string name="category7">Social</string>
     <string name="category8">Spiritual</string>
 
+    <string name="cat1q1">How have my emotional responses to challenges this month shaped my well-being?</string>
+    <string name="cat1q2">Did I face any emotional challenges today? How did I cope with them?</string>
+    <string name="cat1q3">How did I show myself kindness or compassion today?</string>
+    <string name="cat1q4">Did I feel balanced in my emotions today, or did anything feel overwhelming?</string>
+    <string name="cat1q5">How can I manage my emotions more effectively tomorrow?</string>
+
+    <string name="cat2q1">How did my environment (home, workspace, etc.) affect my mood or productivity today?</string>
+    <string name="cat2q2">Did I make choices today that contributed to a healthier or more sustainable environment?</string>
+    <string name="cat2q3">Is there anything in my space today that felt cluttered or draining, and how can I address that?</string>
+    <string name="cat2q4">Did I spend time outside or connect with nature today? How did it make me feel?</string>
+    <string name="cat2q5">What small environmental change could I make to improve my surroundings tomorrow?</string>
+
+    <string name="cat3q1">Did I make mindful financial decisions today, or was I impulsive in any way?</string>
+    <string name="cat3q2">How did my spending today align with my long-term financial goals?</string>
+    <string name="cat3q3">Did I make any progress toward a financial goal, no matter how small, today?</string>
+    <string name="cat3q4">How did I feel about my financial situation today—secure, stressed, or uncertain?</string>
+    <string name="cat3q5">What’s one small step I can take tomorrow to improve my financial habits?</string>
+
+    <string name="cat4q1">Did I learn something new today? How can I apply that knowledge?</string>
+    <string name="cat4q2">Did I engage in any activities today that stimulated my curiosity or creativity?</string>
+    <string name="cat4q3">Was I challenged intellectually today, and how did I respond to that challenge?</string>
+    <string name="cat4q4">How did I make space for learning or growth today, even if just for a few minutes?</string>
+    <string name="cat4q5">What topic or skill would I like to explore more tomorrow?</string>
+
+    <string name="cat5q1">Did I feel satisfied with my work today? What went well, and what could I improve?</string>
+    <string name="cat5q2">How did I balance work and personal life today? Could I have set better boundaries?</string>
+    <string name="cat5q3">Did I make any progress on a project or goal at work today?</string>
+    <string name="cat5q4">How did I contribute to my workplace or team today?</string>
+    <string name="cat5q5">What’s one thing I could do tomorrow to feel more fulfilled in my work?</string>
+
+    <string name="cat6q1">How did my body feel today? Did I notice any areas of tension or fatigue?</string>
+    <string name="cat6q2">Did I make time for physical activity today, and how did it affect my energy levels?</string>
+    <string name="cat6q3">How did I nourish my body today? Was I mindful about what I ate and drank?</string>
+    <string name="cat6q4">How was my sleep quality last night, and what can I do to improve it?</string>
+    <string name="cat6q5">What’s one small change I can make tomorrow to take better care of my body?</string>
+
+    <string name="cat7q1">Did I connect with anyone today? How did those interactions make me feel?</string>
+    <string name="cat7q2">Was I intentional about cultivating positive relationships today?</string>
+    <string name="cat7q3">Did I make any effort to be kind or supportive to others today?</string>
+    <string name="cat7q4">Did I experience any conflicts or misunderstandings today? How did I handle them?</string>
+    <string name="cat7q5">What’s one way I can reach out to a friend or loved one tomorrow to nurture my social connections?</string>
+
+    <string name="cat8q1">How did I feel spiritually today? Did I experience any moments of peace or connection?</string>
+    <string name="cat8q2">Did I engage in any practices (meditation, prayer, reflection, etc.) that nourished my spirit?</string>
+    <string name="cat8q3">Was I able to show gratitude or compassion today, and how did it affect my mindset?</string>
+    <string name="cat8q4">Did I feel aligned with my values and purpose today? If not, what felt off?</string>
+    <string name="cat8q5">What’s one thing I can do tomorrow to nurture my spiritual well-being?</string>
+
     <string name="Prompts">Prompts</string>
     <string name="PromptsIntro1">Looking for reflection prompts?</string>
     <string name="PromptsIntro2">Click any of the tabs below!</string>
     <string name="mascot_image">Mascot Image</string>
+    <string name="argument_key">question_category</string>
+    <string name="category_name">Category Name</string>
 </resources>
