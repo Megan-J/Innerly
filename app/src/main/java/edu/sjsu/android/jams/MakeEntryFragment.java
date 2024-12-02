@@ -13,51 +13,17 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link MakeEntryFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class MakeEntryFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private Button categoryButton;
 
     public MakeEntryFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment MakeEntry.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static MakeEntryFragment newInstance(String param1, String param2) {
-        MakeEntryFragment fragment = new MakeEntryFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -65,14 +31,37 @@ public class MakeEntryFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_make_entry, container, false);
+        categoryButton = view.findViewById(R.id.change_prompt);
         ImageView backArrow = view.findViewById(R.id.back_arrow);
+        categoryButton.setOnClickListener(this::onClickChangePrompt);
         backArrow.setOnClickListener(this::onClickBackArrow);
+
+        // Check if a prompt was passed back from the PromptSpecificFragment
+        if (getArguments() != null) {
+            String selectedPrompt = getArguments().getString("selected_question");
+            if (selectedPrompt != null) {
+                updatePrompt(selectedPrompt);
+            }
+        }
+
         return view;
     }
 
+    private void onClickChangePrompt(View view) {
+        // Navigate to PromptAllFragment
+        Log.d("MakeEntryFragment", "Clicked change prompt");
+        NavController controller = Navigation.findNavController(view);
+        controller.navigate(R.id.action_makeEntryFragment_to_promptAllFragment);
+    }
+
     private void onClickBackArrow(View view) {
-        Log.d("test", "clicked back arrow");
+        Log.d("MakeEntryFragment", "Clicked back arrow");
         NavController controller = Navigation.findNavController(view);
         controller.navigate(R.id.action_makeEntryFragment_to_entryListFragment);
+    }
+
+    // You will update this method to update the prompt
+    public void updatePrompt(String selectedPrompt) {
+        categoryButton.setText(selectedPrompt);
     }
 }

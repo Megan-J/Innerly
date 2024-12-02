@@ -126,6 +126,9 @@
         <action
             android:id="@+id/action_makeEntryFragment_to_entryListFragment"
             app:destination="@id/entryListFragment" />
+        <action
+            android:id="@+id/action_makeEntryFragment_to_promptAllFragment"
+            app:destination="@id/promptAllFragment" />
     </fragment>
     <fragment
         android:id="@+id/promptSpecificFragment"
@@ -135,5 +138,8 @@
         <action
             android:id="@+id/action_promptSpecificFragment_to_promptAllFragment"
             app:destination="@id/promptAllFragment" />
+        <action
+            android:id="@+id/action_promptSpecificFragment_to_makeEntryFragment"
+            app:destination="@id/makeEntryFragment" />
     </fragment>
 </navigation>
