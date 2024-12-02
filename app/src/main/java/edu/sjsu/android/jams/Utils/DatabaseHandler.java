@@ -10,6 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import edu.sjsu.android.jams.Goals.Goal;
@@ -54,6 +55,21 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                         COLUMN_TOTAL_SESSIONS + " INTEGER, " +
                                                         "FOREIGN KEY(" + COLUMN_USER_ID + ") REFERENCES user(id))";
 
+    // ENTRIES
+    private static final String JOURNAL_TABLE = "journal";
+    private static final String COLUMN_ENTRY_DATE = "date";
+    private static final String COLUMN_ENTRY_PROMPT = "prompt";
+    private static final String COLUMN_ENTRY_TITLE = "title";
+    private static final String COLUMN_ENTRY_CONTENT = "content";
+    private static final String CREATE_JOURNAL_TABLE = "CREATE TABLE " + JOURNAL_TABLE + " (" +
+                                                        ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                                                        COLUMN_USER_ID + " INTEGER, " +
+                                                        COLUMN_ENTRY_DATE + " DATE, " +
+                                                        COLUMN_ENTRY_PROMPT + " TEXT, " +
+                                                        COLUMN_ENTRY_TITLE + " TEXT, " +
+                                                        COLUMN_ENTRY_CONTENT + " TEXT, " +
+                                                        "FOREIGN KEY(" + COLUMN_USER_ID + ") REFERENCES user(id))";
+
     public DatabaseHandler(Context context){
         super(context, NAME, null, VERSION);
     }
@@ -63,6 +79,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL(CREATE_GOAL_TABLE);
         db.execSQL(CREATE_USER_TABLE);
 //        db.execSQL(CREATE_POMODORO_TABLE);
+        db.execSQL(CREATE_JOURNAL_TABLE);
         try {
             db.execSQL(CREATE_POMODORO_TABLE);
             Log.e("test", "Created Pomodoro table");
@@ -77,6 +94,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + GOAL_TABLE);
         db.execSQL("DROP TABLE IF EXISTS " + USER_TABLE);
         db.execSQL("DROP TABLE IF EXISTS " + POMODORO_TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + JOURNAL_TABLE);
 
         // create new table
         onCreate(db);
@@ -268,4 +286,32 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void deleteGoal(int id){
         db.delete(GOAL_TABLE, ID + "=?", new String[] {String.valueOf(id)});
     }
+
+    //********************JOURNAL ENTRY METHODS******************//
+//    public boolean insertEntry(Date date, String prompt, String title, String content){
+//        ContentValues values = new ContentValues();
+//        values.put(COLUMN_ENTRY_PROMPT, prompt);
+//        values.put(COLUMN_ENTRY_TITLE, title);
+//        values.put(COLUMN_ENTRY_CONTENT, content);
+//
+//        long result = db.insert(JOURNAL_TABLE, null, values);
+//        return result > 0; // true if successful, else false
+//    }
+//
+//    public Cursor getEntry(String id){
+//        return db.query(JOURNAL_TABLE, null, ID + "=?", new String[]{id}, null, null, null);
+//    }
+//
+//    public void updateEntry(int id, Date date, String prompt, String title, String content){
+//        ContentValues values = new ContentValues();
+//        values.put(COLUMN_ENTRY_DATE, date.getDate());
+//        values.put(COLUMN_ENTRY_PROMPT, prompt);
+//        values.put(COLUMN_ENTRY_TITLE, title);
+//        values.put(COLUMN_ENTRY_CONTENT, content);
+//        db.update(JOURNAL_TABLE, values, ID + "=?", new String[] {String.valueOf(id)});
+//    }
+//
+//    public void deleteEntry(int id){
+//        db.delete(JOURNAL_TABLE, ID + "=?", new String[] {String.valueOf(id)});
+//    }
 }
