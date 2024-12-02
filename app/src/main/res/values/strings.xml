@@ -10,4 +10,18 @@
     <string name="back">Back</string>
     <string name="add_a_new_goal">Add a new goal!</string>
     <string name="save">Save</string>
+
+    <string name="category1">Emotional</string>
+    <string name="category2">Environmental</string>
+    <string name="category3">Financial</string>
+    <string name="category4">Intellectual</string>
+    <string name="category5">Occupational</string>
+    <string name="category6">Physical</string>
+    <string name="category7">Social</string>
+    <string name="category8">Spiritual</string>
+
+    <string name="Prompts">Prompts</string>
+    <string name="PromptsIntro1">Looking for reflection prompts?</string>
+    <string name="PromptsIntro2">Click any of the tabs below!</string>
+    <string name="mascot_image">Mascot Image</string>
 </resources>

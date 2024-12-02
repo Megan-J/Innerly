@@ -44,5 +44,4 @@
         tools:context=".entries.EntryListDateContent"
         tools:listitem="@layout/fragment_entry_item" />
 
-
 </LinearLayout>

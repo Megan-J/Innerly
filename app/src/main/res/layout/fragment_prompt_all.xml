@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="25dp"
+    android:paddingStart="25dp"
+    android:paddingEnd="@dimen/page_padding"
+    android:background="@color/green_theme_color"
+    android:orientation="vertical"
+    tools:context=".entries.EntryListFragment"
+    app:flow_verticalGap="10dp">
+
+    <ImageView
+        android:id="@+id/back_arrow_in_prompts"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:background="@drawable/back_arrow_icon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/my_entries_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:textSize="@dimen/title_size"
+        android:text="@string/Prompts"/>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="10dp" />
+
+    <TextView
+        android:id="@+id/prompt_intro_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?attr/textAppearanceListItem"
+        android:textColor="@color/light_green_theme_color"
+        android:textSize="20sp"
+        android:text="@string/PromptsIntro1"/>
+
+    <TextView
+        android:id="@+id/prompt_intro_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?attr/textAppearanceListItem"
+        android:textColor="@color/light_green_theme_color"
+        android:textSize="20sp"
+        android:text="@string/PromptsIntro2"/>
+
+    <ImageView
+        android:id="@+id/logoImage"
+        android:layout_width="120dp"
+        android:layout_height="100dp"
+        android:src="@drawable/cat_logo"
+        android:layout_gravity="center"
+        android:contentDescription="@string/mascot_image"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/question_categories"
+        android:name="edu.sjsu.android.jams.PromptCategoryContentFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/green_theme_color"
+        app:layoutManager="LinearLayoutManager"
+        tools:context=".entries.EntryListDateContent"
+        tools:listitem="@layout/fragment_prompt_category_content" />
+
+</LinearLayout>
