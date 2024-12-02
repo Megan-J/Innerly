@@ -58,6 +58,12 @@
         <action
             android:id="@+id/action_entryListFragment_to_promptAllFragment"
             app:destination="@id/promptAllFragment" />
+        <action
+            android:id="@+id/action_entryListFragment_to_makeEntryFragment"
+            app:destination="@id/makeEntryFragment" />
+        <action
+            android:id="@+id/action_entryListFragment_to_homepageFragment"
+            app:destination="@id/homepageFragment" />
     </fragment>
     <fragment
         android:id="@+id/statsFragment"
@@ -106,6 +112,15 @@
         android:label="PromptAllFragment" >
         <action
             android:id="@+id/action_promptAllFragment_to_entryListFragment"
+            app:destination="@id/entryListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/makeEntryFragment"
+        android:name="edu.sjsu.android.jams.MakeEntryFragment"
+        android:label="fragment_make_entry"
+        tools:layout="@layout/fragment_make_entry" >
+        <action
+            android:id="@+id/action_makeEntryFragment_to_entryListFragment"
             app:destination="@id/entryListFragment" />
     </fragment>
 </navigation>

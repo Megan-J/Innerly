@@ -12,7 +12,7 @@
     tools:context=".MakeEntryFragment">
 
     <ImageView
-        android:id="@+id/back_arrow_in_pomodoro_session"
+        android:id="@+id/back_arrow"
         android:layout_width="17dp"
         android:layout_height="15dp"
         android:background="@drawable/back_arrow_icon"

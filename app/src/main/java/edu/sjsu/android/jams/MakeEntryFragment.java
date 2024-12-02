@@ -3,10 +3,15 @@ package edu.sjsu.android.jams;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -59,6 +64,15 @@ public class MakeEntryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_make_entry, container, false);
+        View view = inflater.inflate(R.layout.fragment_make_entry, container, false);
+        ImageView backArrow = view.findViewById(R.id.back_arrow);
+        backArrow.setOnClickListener(this::onClickBackArrow);
+        return view;
+    }
+
+    private void onClickBackArrow(View view) {
+        Log.d("test", "clicked back arrow");
+        NavController controller = Navigation.findNavController(view);
+        controller.navigate(R.id.action_makeEntryFragment_to_entryListFragment);
     }
 }

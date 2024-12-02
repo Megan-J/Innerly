@@ -10,8 +10,19 @@
     android:paddingEnd="@dimen/page_padding"
     android:background="@color/green_theme_color"
     android:orientation="vertical"
-    tools:context=".entries.EntryListFragment"
-    app:flow_verticalGap="10dp">
+    tools:context=".entries.EntryListFragment">
+
+    <ImageView
+        android:id="@+id/back_arrow"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:background="@drawable/back_arrow_icon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/my_entries_title"
@@ -28,11 +39,22 @@
         android:layout_height="10dp" />
 
     <Button
-        android:id="@+id/add_entry_btn"
+        android:id="@+id/free_write_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/light_brown_theme_color"
-        android:text="Add Entry" />
+        android:text="Free Write" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="10dp" />
+
+    <Button
+        android:id="@+id/prompts_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/light_brown_theme_color"
+        android:text="Prompts" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/entry_list_date_and_content_recycler_view"
