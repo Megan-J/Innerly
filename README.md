@@ -16,3 +16,4 @@ Fall 2024, CS 175
 ## Documentation
 [Figma Link
 ](https://www.figma.com/design/7pinQ4fTGnitF4HtiW5Or2/JAMS-Innerly-App?node-id=0-1&t=jTFNoSA3s6D4570W-1)  
+[Project Backlog](https://docs.google.com/spreadsheets/d/1ocmI0PoBJuyxbDPRFSRoFI4U0fx37GZnzL_dbk9dDLY/edit?usp=sharing)
