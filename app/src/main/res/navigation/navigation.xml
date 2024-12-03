@@ -120,7 +120,7 @@
     </fragment>
     <fragment
         android:id="@+id/makeEntryFragment"
-        android:name="edu.sjsu.android.jams.MakeEntryFragment"
+        android:name="edu.sjsu.android.jams.entries.MakeEntryFragment"
         android:label="fragment_make_entry"
         tools:layout="@layout/fragment_make_entry" >
         <action

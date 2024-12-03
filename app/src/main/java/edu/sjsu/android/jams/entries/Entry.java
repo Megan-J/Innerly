@@ -6,7 +6,7 @@ import android.os.Parcelable;
 import androidx.annotation.NonNull;
 
 public class Entry implements Parcelable {
-    private int entryID;
+    private int entryID = -1;
     private int userID;
     private String date;
     private String prompt;

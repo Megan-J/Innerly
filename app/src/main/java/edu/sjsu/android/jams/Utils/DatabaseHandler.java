@@ -373,7 +373,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 //        db.update(JOURNAL_TABLE, values, ID + "=?", new String[] {String.valueOf(id)});
 //    }
 //
-//    public void deleteEntry(int id){
-//        db.delete(JOURNAL_TABLE, ID + "=?", new String[] {String.valueOf(id)});
-//    }
+    public void deleteEntry(int id){
+        db.delete(JOURNAL_TABLE, ID + "=?", new String[] {String.valueOf(id)});
+    }
 }

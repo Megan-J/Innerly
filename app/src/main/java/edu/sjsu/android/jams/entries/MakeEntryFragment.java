@@ -1,5 +1,6 @@
-package edu.sjsu.android.jams;
+package edu.sjsu.android.jams.entries;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -21,8 +22,8 @@ import android.widget.Toast;
 
 import java.util.Calendar;
 
+import edu.sjsu.android.jams.R;
 import edu.sjsu.android.jams.Utils.DatabaseHandler;
-import edu.sjsu.android.jams.entries.Entry;
 
 public class MakeEntryFragment extends Fragment {
 
@@ -154,6 +155,25 @@ public class MakeEntryFragment extends Fragment {
     }
     
     private void onClickDeleteBtn(View view) {
-
+        if (entry != null && entry.getEntryID() >= 0) {
+            new AlertDialog.Builder(getContext())
+                    .setTitle("Delete Entry")
+                    .setMessage("Are you sure you want to delete this journal entry? No take backsies.")
+                    .setPositiveButton("Delete", (dialog, which) -> {
+                        // If "Delete" is clicked, delete journal entry from database
+                        db.deleteEntry(entry.getEntryID());
+                        onClickBackArrow(view);
+                    })
+                    .setNegativeButton("Cancel", (dialog, which) -> {
+                        // If "No" is clicked, simply dismiss the dialog
+                        dialog.dismiss();
+                    })
+                    .show();
+        }
+        else {
+            // if entry not in database, toast
+            Toast.makeText(view.getContext(), "Save and reenter entry from 'My Entries' page before deleting.",
+                    Toast.LENGTH_SHORT).show();
+        }
     }
 }
