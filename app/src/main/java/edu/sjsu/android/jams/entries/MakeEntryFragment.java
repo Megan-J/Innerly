@@ -1,5 +1,6 @@
 package edu.sjsu.android.jams.entries;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
@@ -38,6 +39,7 @@ public class MakeEntryFragment extends Fragment {
     private DatabaseHandler db;
     private int userID;
     private Entry entry;
+    private int latestInsertedEntryID = -1;
 
     public MakeEntryFragment() {
         // Required empty public constructor
@@ -129,8 +131,9 @@ public class MakeEntryFragment extends Fragment {
                 new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        String newText = year + "-" + (monthOfYear + 1) + "-" + dayOfMonth;
-                        dateText.setText(newText);
+                        // format date
+                        @SuppressLint("DefaultLocale") String newDateText = String.format("%04d-%02d-%02d", year, monthOfYear + 1, dayOfMonth);
+                        dateText.setText(newDateText);
                     }
                 },
                 year, month, day);
@@ -142,15 +145,16 @@ public class MakeEntryFragment extends Fragment {
         String prompt = categoryButton.getText().toString();
         String title = titleText.getText().toString();
         String content = contentText.getText().toString();
-        if (entry == null) {
+        if (latestInsertedEntryID == -1) {
             // insert entry into database
-            Entry entry = new Entry(userID, date, prompt, title, content);
+            entry = new Entry(userID, date, prompt, title, content);
             if (date.isEmpty()) {
                 Toast.makeText(view.getContext(), "Select a date to save entry.",
                         Toast.LENGTH_SHORT).show();
             }
             else {
-                db.insertEntry(entry);
+                latestInsertedEntryID = db.insertEntry(entry);
+                entry.setEntryID(latestInsertedEntryID);
                 Toast.makeText(view.getContext(), "Journal entry saved.",
                         Toast.LENGTH_SHORT).show();
             }
@@ -166,13 +170,14 @@ public class MakeEntryFragment extends Fragment {
     }
     
     private void onClickDeleteBtn(View view) {
-        if (entry != null && entry.getEntryID() >= 0) {
+        if ((latestInsertedEntryID != -1) || (entry != null)) {
             new AlertDialog.Builder(getContext())
                     .setTitle("Delete Entry")
                     .setMessage("Are you sure you want to delete this journal entry? No take backsies.")
                     .setPositiveButton("Delete", (dialog, which) -> {
                         // If "Delete" is clicked, delete journal entry from database
                         db.deleteEntry(entry.getEntryID());
+                        latestInsertedEntryID = -1;
                         onClickBackArrow(view);
                     })
                     .setNegativeButton("Cancel", (dialog, which) -> {
@@ -183,7 +188,7 @@ public class MakeEntryFragment extends Fragment {
         }
         else {
             // if entry not in database, toast
-            Toast.makeText(view.getContext(), "Save and reenter entry from 'My Entries' page before deleting.",
+            Toast.makeText(view.getContext(), "Journal entry not saved.",
                     Toast.LENGTH_SHORT).show();
         }
     }

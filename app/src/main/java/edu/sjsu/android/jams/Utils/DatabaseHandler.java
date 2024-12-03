@@ -289,7 +289,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     //********************JOURNAL ENTRY METHODS******************//
-    public boolean insertEntry(Entry entry){
+    public int insertEntry(Entry entry){
         ContentValues values = new ContentValues();
         values.put(COLUMN_USER_ID, entry.getUserID());
         values.put(COLUMN_ENTRY_DATE, entry.getDate());
@@ -297,8 +297,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(COLUMN_ENTRY_TITLE, entry.getTitle());
         values.put(COLUMN_ENTRY_CONTENT, entry.getContent());
 
-        long result = db.insert(JOURNAL_TABLE, null, values);
-        return result > 0; // true if successful, else false
+        // return autoincrement entry id key from insert (> 0 if insert successful)
+        return (int) db.insert(JOURNAL_TABLE, null, values);
     }
 
     @SuppressLint("Range")
