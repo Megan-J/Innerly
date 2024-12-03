@@ -7,11 +7,9 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.net.Uri;
 import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import edu.sjsu.android.jams.Goals.Goal;
@@ -363,16 +361,19 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
         return null;
     }
-//
-//    public void updateEntry(int id, Date date, String prompt, String title, String content){
-//        ContentValues values = new ContentValues();
-//        values.put(COLUMN_ENTRY_DATE, date.getDate());
-//        values.put(COLUMN_ENTRY_PROMPT, prompt);
-//        values.put(COLUMN_ENTRY_TITLE, title);
-//        values.put(COLUMN_ENTRY_CONTENT, content);
-//        db.update(JOURNAL_TABLE, values, ID + "=?", new String[] {String.valueOf(id)});
-//    }
-//
+
+    public boolean updateEntry(Entry entry){
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_ENTRY_DATE, entry.getDate());
+        values.put(COLUMN_ENTRY_PROMPT, entry.getPrompt());
+        values.put(COLUMN_ENTRY_TITLE, entry.getTitle());
+        values.put(COLUMN_ENTRY_CONTENT, entry.getContent());
+
+        int result = db.update(JOURNAL_TABLE, values, ID + "=? AND " + COLUMN_USER_ID + "=?",
+                new String[]{String.valueOf(entry.getEntryID()), String.valueOf(entry.getUserID())});
+        return result > 0;
+    }
+
     public void deleteEntry(int id){
         db.delete(JOURNAL_TABLE, ID + "=?", new String[] {String.valueOf(id)});
     }

@@ -85,7 +85,7 @@ public class MakeEntryFragment extends Fragment {
             // populate make entry page with appropriate data on selection of an entry from entries list page
             entry = argument.getParcelable(selectedEntry);
             if (entry != null) {
-                updateEntry(entry);
+                populateEntry(entry);
             }
         }
 
@@ -110,7 +110,7 @@ public class MakeEntryFragment extends Fragment {
         categoryButton.setText(selectedPrompt);
     }
 
-    public void updateEntry(Entry entry) {
+    public void populateEntry(Entry entry) {
         categoryButton.setText(entry.getPrompt());
         dateText.setText(entry.getDate());
         titleText.setText(entry.getTitle());
@@ -142,13 +142,24 @@ public class MakeEntryFragment extends Fragment {
         String prompt = categoryButton.getText().toString();
         String title = titleText.getText().toString();
         String content = contentText.getText().toString();
-        Entry entry = new Entry(userID, date, prompt, title, content);
-        if (date.isEmpty()) {
-            Toast.makeText(view.getContext(), "Select a date to save entry.",
-                    Toast.LENGTH_SHORT).show();
+        if (entry == null) {
+            // insert entry into database
+            Entry entry = new Entry(userID, date, prompt, title, content);
+            if (date.isEmpty()) {
+                Toast.makeText(view.getContext(), "Select a date to save entry.",
+                        Toast.LENGTH_SHORT).show();
+            }
+            else {
+                db.insertEntry(entry);
+                Toast.makeText(view.getContext(), "Journal entry saved.",
+                        Toast.LENGTH_SHORT).show();
+            }
         }
         else {
-            db.insertEntry(entry);
+            // update database
+            int entryID = entry.getEntryID();
+            entry = new Entry(entryID, userID, date, prompt, title, content);
+            db.updateEntry(entry);
             Toast.makeText(view.getContext(), "Journal entry saved.",
                     Toast.LENGTH_SHORT).show();
         }
