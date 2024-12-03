@@ -36,6 +36,7 @@ public class MakeEntryFragment extends Fragment {
 
     private DatabaseHandler db;
     private int userID;
+    private Entry entry;
 
     public MakeEntryFragment() {
         // Required empty public constructor
@@ -71,11 +72,19 @@ public class MakeEntryFragment extends Fragment {
         db = new DatabaseHandler(this.getContext());
         db.openDatabase();
 
-        // Check if a prompt was passed back from the PromptSpecificFragment
-        if (getArguments() != null) {
-            String selectedPrompt = getArguments().getString("selected_question");
+        Bundle argument = getArguments();
+        if (argument != null) {
+            // Check if a prompt was passed back from the PromptSpecificFragment
+            String selectedPrompt = argument.getString("selected_question");
             if (selectedPrompt != null) {
                 updatePrompt(selectedPrompt);
+            }
+            // Check if an entry was passed back from EntryListFragment
+            String selectedEntry = requireContext().getString(R.string.entry_key);
+            // populate make entry page with appropriate data on selection of an entry from entries list page
+            entry = argument.getParcelable(selectedEntry);
+            if (entry != null) {
+                updateEntry(entry);
             }
         }
 
@@ -98,6 +107,13 @@ public class MakeEntryFragment extends Fragment {
     // You will update this method to update the prompt
     public void updatePrompt(String selectedPrompt) {
         categoryButton.setText(selectedPrompt);
+    }
+
+    public void updateEntry(Entry entry) {
+        categoryButton.setText(entry.getPrompt());
+        dateText.setText(entry.getDate());
+        titleText.setText(entry.getTitle());
+        contentText.setText(entry.getContent());
     }
 
     private void onClickDateBtn(View view) {
@@ -140,15 +156,4 @@ public class MakeEntryFragment extends Fragment {
     private void onClickDeleteBtn(View view) {
 
     }
-
-//    private Date stringToDate(String dateStr) {
-//        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-//        Date date;
-//        try {
-//            date = format.parse(dateStr);
-//        } catch (ParseException e) {
-//            throw new RuntimeException(e);
-//        }
-//        return date;
-//    }
 }

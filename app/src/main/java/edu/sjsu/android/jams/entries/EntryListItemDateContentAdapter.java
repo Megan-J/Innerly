@@ -1,8 +1,10 @@
 package edu.sjsu.android.jams.entries;
 
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -12,14 +14,15 @@ import java.util.List;
 
 // Adapter for Journal Entry Item containing Date and Entry List for that Date
 public class EntryListItemDateContentAdapter extends RecyclerView.Adapter<EntryListItemDateContentAdapter.ViewHolder> {
-
+    private Fragment fragment;
     private final List<EntryListItemDateContent> mValues;
 
     /**
      * Constructs the Adapter, which consists of a list of dates and entry Lists items.
      * @param items a List of dates and entry lists
      */
-    public EntryListItemDateContentAdapter(List<EntryListItemDateContent> items) {
+    public EntryListItemDateContentAdapter(Fragment fragment, List<EntryListItemDateContent> items) {
+        this.fragment = fragment;
         mValues = items;
     }
 
@@ -48,7 +51,7 @@ public class EntryListItemDateContentAdapter extends RecyclerView.Adapter<EntryL
         // Set date
         holder.binding.entryDate.setText(current.getDate());
         // Set adapter for journal entry content
-        EntryListItemContentAdapter contentAdapter = new EntryListItemContentAdapter(current.getEntryList());
+        EntryListItemContentAdapter contentAdapter = new EntryListItemContentAdapter(fragment, current.getEntryList());
         holder.binding.entryListDateAndContentRecyclerView.setLayoutManager(new LinearLayoutManager(holder.binding.entryListDateAndContentRecyclerView.getContext()));
         holder.binding.entryListDateAndContentRecyclerView.setAdapter(contentAdapter);
     }

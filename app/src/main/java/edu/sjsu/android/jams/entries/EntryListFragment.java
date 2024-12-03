@@ -63,7 +63,7 @@ public class EntryListFragment extends Fragment {
         recyclerView = view.findViewById(R.id.entry_list_date_and_content_recycler_view);
         data = generateData(userID);
         // construct adapter with data argument
-        adapter = new EntryListItemDateContentAdapter(data);
+        adapter = new EntryListItemDateContentAdapter(this, data);
         // set the adapter for RecyclerView
         recyclerView.setAdapter(adapter);
 
@@ -84,9 +84,9 @@ public class EntryListFragment extends Fragment {
         List<EntryListItemDateContent> data = new ArrayList<>();
         List<String> datesList = db.getEntryDatesList(userID);
         for (String date: datesList) {
-            List<String> entryIDList = db.getEntryIDsForDate(userID, date);
+            List<Integer> entryIDList = db.getEntryIDsForDate(userID, date);
             List<Entry> entries = new ArrayList<>();
-            for (String entryID: entryIDList) {
+            for (int entryID: entryIDList) {
                 Log.d("entry", db.getEntryByID(entryID).getTitle());
                 entries.add(db.getEntryByID(entryID));
             }

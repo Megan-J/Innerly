@@ -1,25 +1,32 @@
 package edu.sjsu.android.jams.entries;
 
+import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import edu.sjsu.android.jams.R;
 import edu.sjsu.android.jams.databinding.FragmentEntryContentItemBinding;
 
 import java.util.List;
 
 // Adapter for Journal Entry Item
 public class EntryListItemContentAdapter extends RecyclerView.Adapter<EntryListItemContentAdapter.ViewHolder> {
-
+    private Fragment fragment;
     private final List<Entry> mValues;
 
     /**
      * Constructs the Adapter, which consists of a list of journal entries.
      * @param items a List of journal entries
      */
-    public EntryListItemContentAdapter(List<Entry> items) {
+    public EntryListItemContentAdapter(Fragment fragment, List<Entry> items) {
+        this.fragment = fragment;
         mValues = items;
     }
 
@@ -46,10 +53,23 @@ public class EntryListItemContentAdapter extends RecyclerView.Adapter<EntryListI
     public void onBindViewHolder(final ViewHolder holder, int position) {
         // Get the current data from the arraylist based on the position
         Entry current = mValues.get(position);
+
+        // Set entry id
+        holder.binding.entryId.setText(String.valueOf(current.getEntryID()));
         // Set entry title
         holder.binding.entryTitle.setText(current.getTitle());
         // Set entry content
         holder.binding.entryContentPreview.setText(current.getContent());
+
+        //Pass bundle on navigation
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(fragment.getString(R.string.entry_key), current);
+
+        holder.binding.getRoot().setOnClickListener(view -> {
+            NavController controller = NavHostFragment.findNavController(fragment);
+            controller.navigate(R.id.action_entryListFragment_to_makeEntryFragment, bundle);
+        });
+
     }
 
     /**

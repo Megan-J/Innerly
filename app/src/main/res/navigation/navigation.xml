@@ -129,6 +129,9 @@
         <action
             android:id="@+id/action_makeEntryFragment_to_promptAllFragment"
             app:destination="@id/promptAllFragment" />
+        <argument
+            android:name="selected_entry"
+            app:argType="edu.sjsu.android.jams.entries.Entry" />
     </fragment>
     <fragment
         android:id="@+id/promptSpecificFragment"

@@ -11,6 +11,8 @@
     <string name="add_a_new_goal">Add a new goal!</string>
     <string name="save">Save</string>
 
+    <string name="entry_key">selected_entry</string>
+
     <string name="category1">Emotional</string>
     <string name="category2">Environmental</string>
     <string name="category3">Financial</string>

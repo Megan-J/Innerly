@@ -321,8 +321,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     @SuppressLint("Range")
-    public List<String> getEntryIDsForDate(int userID, String date) {
-        List<String> entryIDList = new ArrayList<>();
+    public List<Integer> getEntryIDsForDate(int userID, String date) {
+        List<Integer> entryIDList = new ArrayList<>();
         try (Cursor c = db.query(JOURNAL_TABLE, new String[]{ID},
                 COLUMN_USER_ID + "=" + userID + " AND " + COLUMN_ENTRY_DATE + "= '" + date + "'",
                 null, null, null, ID + " DESC");
@@ -330,7 +330,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             if (c.moveToFirst()) {
                 if ((c.getColumnIndex(ID) >= 0)) {
                     do {
-                        entryIDList.add(c.getString(c.getColumnIndex(ID)));
+                        entryIDList.add(c.getInt(c.getColumnIndex(ID)));
                     } while(c.moveToNext());
                 }
                 else{
@@ -345,8 +345,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     @SuppressLint("Range")  // suppressing the range because it's accounted for inside the if statement
-    public Entry getEntryByID(String id){
-        try (Cursor c = db.query(JOURNAL_TABLE, null, ID + "=?", new String[]{id}, null, null, null)) {
+    public Entry getEntryByID(int id){
+        try (Cursor c = db.query(JOURNAL_TABLE, null, ID + "=" + id, null, null, null, null)) {
             if (c.moveToFirst()) {
                 if ((c.getColumnIndex(COLUMN_USER_ID) >= 0) && (c.getColumnIndex(COLUMN_ENTRY_DATE) >= 0)
                         && (c.getColumnIndex(COLUMN_ENTRY_PROMPT) >= 0) && (c.getColumnIndex(COLUMN_ENTRY_TITLE) >= 0)
@@ -356,7 +356,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     String prompt = c.getString(c.getColumnIndex(COLUMN_ENTRY_PROMPT));
                     String title = c.getString(c.getColumnIndex(COLUMN_ENTRY_TITLE));
                     String content = c.getString(c.getColumnIndex(COLUMN_ENTRY_CONTENT));
-                    return new Entry(userId, date, prompt, title, content);
+                    return new Entry(id, userId, date, prompt, title, content);
                 }
 
             }
