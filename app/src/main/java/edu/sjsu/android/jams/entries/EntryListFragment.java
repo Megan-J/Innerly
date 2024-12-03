@@ -1,5 +1,7 @@
 package edu.sjsu.android.jams.entries;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -13,7 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +31,7 @@ public class EntryListFragment extends Fragment {
     private RecyclerView recyclerView;
 
     private DatabaseHandler db;
+    private int userID;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -46,7 +48,8 @@ public class EntryListFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        data = generateSampleData();
+        SharedPreferences sharedPreferences = requireContext().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
+        userID = sharedPreferences.getInt("user_id", -1);
         db = new DatabaseHandler(getContext());
         db.openDatabase();
     }
@@ -58,6 +61,7 @@ public class EntryListFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_entry_item_list, container, false);
         // initialize receiver view
         recyclerView = view.findViewById(R.id.entry_list_date_and_content_recycler_view);
+        data = generateData(userID);
         // construct adapter with data argument
         adapter = new EntryListItemDateContentAdapter(data);
         // set the adapter for RecyclerView
@@ -73,19 +77,22 @@ public class EntryListFragment extends Fragment {
     }
 
     /**
-     * Sample data to replace with database values
-     * @return ArrayList of journal entries containing date and content
+     * Data to display on My Entries page
+     * @return ArrayList of journal entries containing date and entries of that date
      */
-    private List<EntryListItemDateContent> generateSampleData() {
-        List<EntryListItemDateContent> sampleData = new ArrayList<>();
-        for (int i = 1; i <= 5; i++) {
+    private List<EntryListItemDateContent> generateData(int userID) {
+        List<EntryListItemDateContent> data = new ArrayList<>();
+        List<String> datesList = db.getEntryDatesList(userID);
+        for (String date: datesList) {
+            List<String> entryIDList = db.getEntryIDsForDate(userID, date);
             List<Entry> entries = new ArrayList<>();
-            for (int j = 1; j <= 3; j++) {
-                entries.add(new Entry("Title " + j, "content preview for the entry"));
+            for (String entryID: entryIDList) {
+                Log.d("entry", db.getEntryByID(entryID).getTitle());
+                entries.add(db.getEntryByID(entryID));
             }
-            sampleData.add(new EntryListItemDateContent("Date " + i, entries));
+            data.add(new EntryListItemDateContent(date, entries));
         }
-        return sampleData;
+        return data;
     }
 
     private void onClickBackArrow(View view) {

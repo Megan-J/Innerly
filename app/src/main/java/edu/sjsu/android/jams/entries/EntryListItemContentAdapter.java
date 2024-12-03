@@ -10,14 +10,14 @@ import edu.sjsu.android.jams.databinding.FragmentEntryContentItemBinding;
 
 import java.util.List;
 
-// Adapter for Journal Entry Item containing Title and Content Preview
+// Adapter for Journal Entry Item
 public class EntryListItemContentAdapter extends RecyclerView.Adapter<EntryListItemContentAdapter.ViewHolder> {
 
     private final List<Entry> mValues;
 
     /**
-     * Constructs the Adapter, which consists of a list of ArrayList of String items.
-     * @param items a List of ArrayLists of Strings
+     * Constructs the Adapter, which consists of a list of journal entries.
+     * @param items a List of journal entries
      */
     public EntryListItemContentAdapter(List<Entry> items) {
         mValues = items;

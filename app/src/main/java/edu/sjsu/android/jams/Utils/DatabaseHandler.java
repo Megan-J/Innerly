@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.net.Uri;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -301,10 +302,67 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         long result = db.insert(JOURNAL_TABLE, null, values);
         return result > 0; // true if successful, else false
     }
-//
-//    public Cursor getEntry(String id){
-//        return db.query(JOURNAL_TABLE, null, ID + "=?", new String[]{id}, null, null, null);
-//    }
+
+    @SuppressLint("Range")
+    public List<String> getEntryDatesList(int userID) {
+        List<String> datesList = new ArrayList<>();
+        try (Cursor c = db.query(true, JOURNAL_TABLE, new String[]{COLUMN_ENTRY_DATE},
+                COLUMN_USER_ID + "=" + userID, null, null, null,
+                COLUMN_ENTRY_DATE + " DESC", null)) {
+            if (c.moveToFirst()) {
+                if ((c.getColumnIndex(COLUMN_ENTRY_DATE) >= 0)) {
+                    do {
+                        datesList.add(c.getString(c.getColumnIndex(COLUMN_ENTRY_DATE)));
+                    } while(c.moveToNext());
+                }
+            }
+        }
+        return datesList;
+    }
+
+    @SuppressLint("Range")
+    public List<String> getEntryIDsForDate(int userID, String date) {
+        List<String> entryIDList = new ArrayList<>();
+        try (Cursor c = db.query(JOURNAL_TABLE, new String[]{ID},
+                COLUMN_USER_ID + "=" + userID + " AND " + COLUMN_ENTRY_DATE + "= '" + date + "'",
+                null, null, null, ID + " DESC");
+        ) {
+            if (c.moveToFirst()) {
+                if ((c.getColumnIndex(ID) >= 0)) {
+                    do {
+                        entryIDList.add(c.getString(c.getColumnIndex(ID)));
+                    } while(c.moveToNext());
+                }
+                else{
+                    Log.d("get entryIDList db test", "entry id column doesn't exist");
+                }
+            }
+            else{
+                Log.d("get entryIDList db test", "cursor is empty");
+            }
+        }
+        return entryIDList;
+    }
+
+    @SuppressLint("Range")  // suppressing the range because it's accounted for inside the if statement
+    public Entry getEntryByID(String id){
+        try (Cursor c = db.query(JOURNAL_TABLE, null, ID + "=?", new String[]{id}, null, null, null)) {
+            if (c.moveToFirst()) {
+                if ((c.getColumnIndex(COLUMN_USER_ID) >= 0) && (c.getColumnIndex(COLUMN_ENTRY_DATE) >= 0)
+                        && (c.getColumnIndex(COLUMN_ENTRY_PROMPT) >= 0) && (c.getColumnIndex(COLUMN_ENTRY_TITLE) >= 0)
+                        && (c.getColumnIndex(COLUMN_ENTRY_CONTENT) >= 0)) {
+                    int userId = c.getInt(c.getColumnIndex(COLUMN_USER_ID));
+                    String date = c.getString(c.getColumnIndex(COLUMN_ENTRY_DATE));
+                    String prompt = c.getString(c.getColumnIndex(COLUMN_ENTRY_PROMPT));
+                    String title = c.getString(c.getColumnIndex(COLUMN_ENTRY_TITLE));
+                    String content = c.getString(c.getColumnIndex(COLUMN_ENTRY_CONTENT));
+                    return new Entry(userId, date, prompt, title, content);
+                }
+
+            }
+        }
+        return null;
+    }
 //
 //    public void updateEntry(int id, Date date, String prompt, String title, String content){
 //        ContentValues values = new ContentValues();

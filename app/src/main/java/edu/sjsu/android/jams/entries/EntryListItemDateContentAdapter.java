@@ -10,14 +10,14 @@ import edu.sjsu.android.jams.databinding.FragmentEntryItemBinding;
 
 import java.util.List;
 
-// Adapter for Journal Entry Item containing Date and Entry
+// Adapter for Journal Entry Item containing Date and Entry List for that Date
 public class EntryListItemDateContentAdapter extends RecyclerView.Adapter<EntryListItemDateContentAdapter.ViewHolder> {
 
     private final List<EntryListItemDateContent> mValues;
 
     /**
-     * Constructs the Adapter, which consists of a list of String items.
-     * @param items a List of Strings
+     * Constructs the Adapter, which consists of a list of dates and entry Lists items.
+     * @param items a List of dates and entry lists
      */
     public EntryListItemDateContentAdapter(List<EntryListItemDateContent> items) {
         mValues = items;
