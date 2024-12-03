@@ -19,14 +19,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.sjsu.android.jams.R;
+import edu.sjsu.android.jams.Utils.DatabaseHandler;
 
 /**
  * A fragment representing a list of Journal Entries.
  */
 public class EntryListFragment extends Fragment {
-    List<EntryListItemDateContent> data = new ArrayList<>();
-    EntryListItemDateContentAdapter adapter;
-    RecyclerView recyclerView;
+    private List<EntryListItemDateContent> data = new ArrayList<>();
+    private EntryListItemDateContentAdapter adapter;
+    private RecyclerView recyclerView;
+
+    private DatabaseHandler db;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -44,6 +47,8 @@ public class EntryListFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         data = generateSampleData();
+        db = new DatabaseHandler(getContext());
+        db.openDatabase();
     }
 
     @Override
@@ -74,9 +79,9 @@ public class EntryListFragment extends Fragment {
     private List<EntryListItemDateContent> generateSampleData() {
         List<EntryListItemDateContent> sampleData = new ArrayList<>();
         for (int i = 1; i <= 5; i++) {
-            List<EntryListItemContent> entries = new ArrayList<>();
+            List<Entry> entries = new ArrayList<>();
             for (int j = 1; j <= 3; j++) {
-                entries.add(new EntryListItemContent("Title " + j, "content preview for the entry"));
+                entries.add(new Entry("Title " + j, "content preview for the entry"));
             }
             sampleData.add(new EntryListItemDateContent("Date " + i, entries));
         }

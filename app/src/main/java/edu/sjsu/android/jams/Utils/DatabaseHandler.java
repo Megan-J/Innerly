@@ -14,6 +14,7 @@ import java.util.Date;
 import java.util.List;
 
 import edu.sjsu.android.jams.Goals.Goal;
+import edu.sjsu.android.jams.entries.Entry;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
 
@@ -83,6 +84,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         try {
             db.execSQL(CREATE_POMODORO_TABLE);
             Log.e("test", "Created Pomodoro table");
+
         } catch (SQLException e) {
             Log.e("test", "Error creating Pomodoro table", e);
         }
@@ -288,15 +290,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     //********************JOURNAL ENTRY METHODS******************//
-//    public boolean insertEntry(Date date, String prompt, String title, String content){
-//        ContentValues values = new ContentValues();
-//        values.put(COLUMN_ENTRY_PROMPT, prompt);
-//        values.put(COLUMN_ENTRY_TITLE, title);
-//        values.put(COLUMN_ENTRY_CONTENT, content);
-//
-//        long result = db.insert(JOURNAL_TABLE, null, values);
-//        return result > 0; // true if successful, else false
-//    }
+    public boolean insertEntry(Entry entry){
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_USER_ID, entry.getUserID());
+        values.put(COLUMN_ENTRY_DATE, entry.getDate());
+        values.put(COLUMN_ENTRY_PROMPT, entry.getPrompt());
+        values.put(COLUMN_ENTRY_TITLE, entry.getTitle());
+        values.put(COLUMN_ENTRY_CONTENT, entry.getContent());
+
+        long result = db.insert(JOURNAL_TABLE, null, values);
+        return result > 0; // true if successful, else false
+    }
 //
 //    public Cursor getEntry(String id){
 //        return db.query(JOURNAL_TABLE, null, ID + "=?", new String[]{id}, null, null, null);

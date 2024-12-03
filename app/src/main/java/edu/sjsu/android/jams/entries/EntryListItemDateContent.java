@@ -8,13 +8,13 @@ import java.util.List;
  */
 public class EntryListItemDateContent {
     private String date;
-    private List<EntryListItemContent> entryList;
+    private List<Entry> entryList;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public EntryListItemDateContent(String date, List<EntryListItemContent> entryList) {
+    public EntryListItemDateContent(String date, List<Entry> entryList) {
         this.date = date;
         this.entryList = entryList;
     }
@@ -31,7 +31,7 @@ public class EntryListItemDateContent {
      * Returns a List containing the title and content of the journal entry.
      * @return a List containing the title and content of the journal entry
      */
-    public List<EntryListItemContent> getEntryList() {
+    public List<Entry> getEntryList() {
         return entryList;
     }
 }

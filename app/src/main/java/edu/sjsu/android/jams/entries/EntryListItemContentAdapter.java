@@ -13,13 +13,13 @@ import java.util.List;
 // Adapter for Journal Entry Item containing Title and Content Preview
 public class EntryListItemContentAdapter extends RecyclerView.Adapter<EntryListItemContentAdapter.ViewHolder> {
 
-    private final List<EntryListItemContent> mValues;
+    private final List<Entry> mValues;
 
     /**
      * Constructs the Adapter, which consists of a list of ArrayList of String items.
      * @param items a List of ArrayLists of Strings
      */
-    public EntryListItemContentAdapter(List<EntryListItemContent> items) {
+    public EntryListItemContentAdapter(List<Entry> items) {
         mValues = items;
     }
 
@@ -45,7 +45,7 @@ public class EntryListItemContentAdapter extends RecyclerView.Adapter<EntryListI
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         // Get the current data from the arraylist based on the position
-        EntryListItemContent current = mValues.get(position);
+        Entry current = mValues.get(position);
         // Set entry title
         holder.binding.entryTitle.setText(current.getTitle());
         // Set entry content

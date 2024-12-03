@@ -21,7 +21,6 @@
         android:id="@+id/entry_list_date_and_content_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".entries.EntryListItemContent"
         tools:listitem="@layout/fragment_entry_content_item"/>
 
 </LinearLayout>
