@@ -95,10 +95,21 @@ public class MakeEntryFragment extends Fragment {
     }
 
     private void onClickChangePrompt(View view) {
-        // Navigate to PromptAllFragment
-        Log.d("MakeEntryFragment", "Clicked change prompt");
-        NavController controller = Navigation.findNavController(view);
-        controller.navigate(R.id.action_makeEntryFragment_to_promptAllFragment);
+        // Show confirmation dialog
+        new AlertDialog.Builder(getContext())
+                .setTitle("Change Prompt")
+                .setMessage("Do you want to change the prompt? Unsaved changes will be lost.")
+                .setPositiveButton("Yes", (dialog, which) -> {
+                    // If "Yes" is clicked, navigate to PromptAllFragment
+                    Log.d("MakeEntryFragment", "Clicked change prompt");
+                    NavController controller = Navigation.findNavController(view);
+                    controller.navigate(R.id.action_makeEntryFragment_to_promptAllFragment);
+                })
+                .setNegativeButton("No", (dialog, which) -> {
+                    // If "No" is clicked, simply dismiss the dialog
+                    dialog.dismiss();
+                })
+                .show();
     }
 
     private void onClickBackArrow(View view) {

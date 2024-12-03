@@ -43,29 +43,13 @@ public class PromptSpecificFragment extends Fragment {
 
         RecyclerView recyclerView = binding.getRoot().findViewById(R.id.questions);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        QuestionAdapter questionAdapter = new QuestionAdapter(questionCategory.getQuestions(), this::onQuestionSelected);
+        QuestionAdapter questionAdapter = new QuestionAdapter(questionCategory.getQuestions(), this::navigateBackWithQuestion);
         recyclerView.setAdapter(questionAdapter);
 
         backArrow = binding.getRoot().findViewById(R.id.back_arrow_in_prompts_specific);
         backArrow.setOnClickListener(v -> navigateBack(v));
 
         return binding.getRoot();
-    }
-
-    private void onQuestionSelected(String selectedQuestion) {
-        // Show confirmation dialog
-        new AlertDialog.Builder(getContext())
-                .setTitle("Change Prompt")
-                .setMessage("Do you want to change the prompt to this question?")
-                .setPositiveButton("Yes", (dialog, which) -> {
-                    // If "Yes" is clicked, navigate back with the selected question
-                    navigateBackWithQuestion(selectedQuestion);
-                })
-                .setNegativeButton("No", (dialog, which) -> {
-                    // If "No" is clicked, simply dismiss the dialog
-                    dialog.dismiss();
-                })
-                .show();
     }
 
     private void navigateBackWithQuestion(String selectedQuestion) {
