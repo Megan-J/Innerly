@@ -1,5 +1,7 @@
 package edu.sjsu.android.jams;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -12,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.AxisBase;
@@ -22,11 +25,19 @@ import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
+
+import edu.sjsu.android.jams.Utils.DatabaseHandler;
 
 public class StatsFragment extends Fragment {
     private ImageView backButton;
     private BarChart barChart;
+    private TextView hoursFocusedTodayValue, hoursFocusedValue, totalPomodoroSessionsValue;
+    private DatabaseHandler databaseHandler;
+    private int userID;
 
     public StatsFragment() {
         // Required empty public constructor
@@ -42,6 +53,8 @@ public class StatsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SharedPreferences sharedPreferences = requireContext().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
+        userID = sharedPreferences.getInt("user_id", -1);
     }
 
     @Override
@@ -98,7 +111,32 @@ public class StatsFragment extends Fragment {
         barChart.setData(barData);
         barChart.invalidate();
 
+        databaseHandler = new DatabaseHandler(this.getContext());
+        databaseHandler.openDatabase();
+
+        hoursFocusedTodayValue = view.findViewById(R.id.hoursFocusedTodayValue);
+        hoursFocusedValue = view.findViewById(R.id.hoursFocusedValue);
+        totalPomodoroSessionsValue = view.findViewById(R.id.totalPomodoroSessionsValue);
+
+        loadStats();
+
         return view;
+    }
+
+    public void loadStats(){
+        String currentDate = getCurrentDate();
+        double hoursToday = databaseHandler.getTodayHoursFocused(userID, currentDate);
+        double totalHours = databaseHandler.getTotalHoursFocused(userID);
+        int totalSessions = databaseHandler.getTotalPomodoroSessions(userID);
+
+        hoursFocusedTodayValue.setText(String.format("%.3f", hoursToday));
+        hoursFocusedValue.setText(String.format("%.3f", totalHours));
+        totalPomodoroSessionsValue.setText(String.valueOf(totalSessions));
+    }
+
+    private String getCurrentDate() {
+        SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy", Locale.getDefault());
+        return sdf.format(new Date());
     }
 
     private void navigateToPomodoro(View view) {
