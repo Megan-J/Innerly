@@ -32,8 +32,8 @@ public class PomodoroFragment extends Fragment {
     private boolean timerRunning = false;
     private boolean workSession = true;
 
-    private long workDuration = 1 * 60 * 1000;
-    private long breakDuration = 2 * 60 * 1000;
+    private long workDuration = 25 * 60 * 1000;
+    private long breakDuration = 5 * 60 * 1000;
     private long timeRemaining = workDuration;
 
     private DatabaseHandler databaseHandler;
@@ -120,7 +120,6 @@ public class PomodoroFragment extends Fragment {
             @Override
             public void onTick(long millisUntilFinished) {
                 timeRemaining = (int) millisUntilFinished;
-//                startButton.setText("Pause");
                 updateTimerText();
             }
 
@@ -138,12 +137,12 @@ public class PomodoroFragment extends Fragment {
                     workSession = true;
                     sessionStatus.setText("Session Start!");
                 }
-//                startTimer();
                 updateTimerText();
             }
         }.start();
         timerRunning = true;
-//        startButton.setText("Pause");
+        startButton.setText("Pause");
+        sessionStatus.setText("Session Start!");
     }
 
     public void updatePomodoroStats(){
@@ -156,27 +155,11 @@ public class PomodoroFragment extends Fragment {
             Log.d("test", "User ID is " + userID);
         }
 
-        Log.d("test", "Trying to initialize DatabaseHandler");
         databaseHandler = new DatabaseHandler(this.getContext());
         databaseHandler.openDatabase();
-        Log.d("test", "DatabaseHandler initialized successfully");
         String currentDate = getCurrentDate();
-        Log.d("test", "currentDate: " + currentDate);
         double sessionHours = workDuration / (1000.0 * 60.0 * 60.0);
-        Log.d("test", "sessionHours: " + sessionHours);
         boolean exists = databaseHandler.doesPomodoroStatExist(userID, currentDate);
-//        boolean exists = false;
-//        try {
-//            exists = databaseHandler.doesPomodoroStatExist(userID, currentDate);
-//            Log.d("test", "Does Pomodoro stat exist: " + exists);
-//        } catch (Exception e) {
-//            Log.e("test", "Error in doesPomodoroStatExist: " + e.getMessage());
-//        }
-//
-//        Log.d("test", "Does Pomodoro stat exist: " + exists);
-//        Log.d("test", "Today Hours Focused: " + databaseHandler.getTodayHoursFocused(userID, currentDate));
-//        Log.d("test", "Total Hours Focused: " + databaseHandler.getTotalHoursFocused(userID));
-//        Log.d("test", "Total Pomodoro Sessions: " + databaseHandler.getTotalPomodoroSessions(userID));
 
         if(exists){ // pomo stats already exist
             double currentHoursToday = sessionHours + databaseHandler.getTodayHoursFocused(userID, currentDate);
@@ -207,11 +190,11 @@ public class PomodoroFragment extends Fragment {
 
     private void pauseTimer() {
         if(countDownTimer != null){
-            startButton.setText("Pause");
             countDownTimer.cancel();
         }
         timerRunning = false;
         startButton.setText("Start");
+        sessionStatus.setText("Session Paused!");
     }
 
     private void resetTimer() {
@@ -254,7 +237,4 @@ public class PomodoroFragment extends Fragment {
             }
         }
     }
-
-
-
 }

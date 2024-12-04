@@ -2,6 +2,7 @@ package edu.sjsu.android.jams;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -65,7 +66,13 @@ public class StatsFragment extends Fragment {
         backButton = view.findViewById(R.id.back_arrow_in_pomodoro_stats);
         backButton.setOnClickListener(this::navigateToPomodoro);
 
+        databaseHandler = new DatabaseHandler(this.getContext());
+        databaseHandler.openDatabase();
+
         barChart = view.findViewById(R.id.bar_chart);
+        loadBarChartData();
+
+        /*
         ArrayList<BarEntry> entries = new ArrayList<>();
         entries.add(new BarEntry(0, 3f));
         entries.add(new BarEntry(1, 1f));
@@ -110,9 +117,7 @@ public class StatsFragment extends Fragment {
         barChart.setFitBars(true);
         barChart.setData(barData);
         barChart.invalidate();
-
-        databaseHandler = new DatabaseHandler(this.getContext());
-        databaseHandler.openDatabase();
+         */
 
         hoursFocusedTodayValue = view.findViewById(R.id.hoursFocusedTodayValue);
         hoursFocusedValue = view.findViewById(R.id.hoursFocusedValue);
@@ -132,6 +137,55 @@ public class StatsFragment extends Fragment {
         hoursFocusedTodayValue.setText(String.format("%.3f", hoursToday));
         hoursFocusedValue.setText(String.format("%.3f", totalHours));
         totalPomodoroSessionsValue.setText(String.valueOf(totalSessions));
+    }
+
+    public void loadBarChartData(){
+        Cursor cursor = databaseHandler.getDailyFocusHours(userID);
+        ArrayList<BarEntry> entries = new ArrayList<>();
+
+        while (cursor.moveToNext()) {
+            int dayOfWeek = cursor.getInt(cursor.getColumnIndexOrThrow("day_of_week"));
+            float totalHours = cursor.getFloat(cursor.getColumnIndexOrThrow("total_hours"));
+            entries.add(new BarEntry(dayOfWeek, totalHours));
+        }
+        cursor.close();
+
+        BarDataSet barDataSet = new BarDataSet(entries, "Daily Focus Hours");
+        barDataSet.setColor(Color.parseColor("#99BCC0"));
+        barDataSet.setValueTextSize(12f);
+
+        BarData barData = new BarData(barDataSet);
+        barData.setBarWidth(0.9f);
+
+        XAxis xAxis = barChart.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setGranularity(1f);
+        xAxis.setTextSize(12f);
+        xAxis.setTextColor(Color.BLACK);
+        xAxis.setLabelCount(entries.size());
+        xAxis.setDrawGridLines(false);
+        xAxis.setValueFormatter(new ValueFormatter() {
+            private final String[] days = {"M", "T", "W", "T", "F", "S", "S"};
+            @Override
+            public String getFormattedValue(float value) {
+                return days[(int) value];
+            }
+        });
+
+        YAxis yAxis = barChart.getAxisLeft();
+        yAxis.setAxisMinimum(0f);
+        yAxis.setGranularity(1f);
+        yAxis.setTextSize(12f);
+        yAxis.setTextColor(Color.BLACK);
+        yAxis.setDrawGridLines(false);
+        yAxis.setGridColor(Color.parseColor("#273de3"));
+
+        barChart.getAxisRight().setEnabled(false);
+        barChart.getDescription().setEnabled(false);
+        barChart.setFitBars(true);
+
+        barChart.setData(barData);
+        barChart.invalidate();
     }
 
     private String getCurrentDate() {

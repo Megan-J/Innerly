@@ -183,7 +183,6 @@
             android:id="@+id/session_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Session Start"
             android:paddingStart="16dp"
             android:textSize="25dp"
             android:textColor="@color/white"

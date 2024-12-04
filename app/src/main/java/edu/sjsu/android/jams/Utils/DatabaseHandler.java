@@ -187,6 +187,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return totalSessions;
     }
 
+    public Cursor getDailyFocusHours(int userId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT strftime('%w', " + COLUMN_DATE + ") AS day_of_week, " +
+                "SUM(" + COLUMN_HOURS_FOCUSED_TODAY + ") AS total_hours " +
+                "FROM " + POMODORO_TABLE + " " +
+                "WHERE " + COLUMN_USER_ID + " = ? " +
+                "GROUP BY day_of_week " +
+                "ORDER BY day_of_week";
+
+        return db.rawQuery(query, new String[]{String.valueOf(userId)});
+    }
+
     //********************USER METHODS******************//
     public boolean insertUser(String email, String password){
         ContentValues values = new ContentValues();
