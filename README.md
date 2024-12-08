@@ -6,7 +6,7 @@ Innerly is a time management and wellness mobile application built with Android 
 
 Team: JAMS  
 Members: Jasmine Lao, Anne Mai, Megan Ju, Sandra Le  
-Group Number: 3
+Group Number: 3  
 Course: CS175 - Mobile Device Developement, Fall 2024
 
 ## Features & Functionalities
