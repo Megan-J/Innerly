@@ -38,7 +38,7 @@ git clone https://github.com/your-repo-link
 
 ## Documentation
 
-This repository includes the **APK** file for direct installation on Android devices.
+This repository includes the **APK** file (called <code>Innerly.apk</code>) for direct installation on Android devices.
 
 Additional documentation and resources are available:
 
