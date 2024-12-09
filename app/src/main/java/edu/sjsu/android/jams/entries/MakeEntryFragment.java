@@ -156,7 +156,7 @@ public class MakeEntryFragment extends Fragment {
         String prompt = categoryButton.getText().toString();
         String title = titleText.getText().toString();
         String content = contentText.getText().toString();
-        if (latestInsertedEntryID == -1) {
+        if (entry == null && latestInsertedEntryID == -1) {
             // insert entry into database
             entry = new Entry(userID, date, prompt, title, content);
             if (date.isEmpty()) {
